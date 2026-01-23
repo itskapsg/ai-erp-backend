@@ -51,3 +51,1246 @@ INFO:__main__:Database initialized successfully: postgresql://erp_admin:db_passw
 INFO:__main__:Startup log created successfully
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:56313 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [7787]
+/workspace/app/main.py:20: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base = declarative_base()
+/workspace/app/main.py:47: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [10907]
+INFO:     Waiting for application startup.
+INFO:__main__:Database initialized successfully: postgresql://erp_admin:db_password_123@localhost/erp_test_db
+INFO:__main__:Startup log created successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:56313 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [10907]
+/workspace/app/main.py:20: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base = declarative_base()
+/workspace/app/main.py:47: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [11510]
+INFO:     Waiting for application startup.
+INFO:__main__:Database initialized successfully: postgresql://erp_admin:db_password_123@localhost/erp_test_db
+INFO:__main__:Startup log created successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:56313 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [11510]
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 13, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+ModuleNotFoundError: No module named 'app'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 7, in <module>
+    from sqlalchemy.orm import sessionmaker, Session
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/sqlalchemy/orm/__init__.py", line 57, in <module>
+    from .decl_api import add_mapped_attribute as add_mapped_attribute
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/sqlalchemy/orm/decl_api.py", line 50, in <module>
+    from .decl_base import _add_attribute
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/sqlalchemy/orm/decl_base.py", line 90, in <module>
+    class MappedClassProtocol(Protocol[_O]):
+                              ~~~~~~~~^^^^
+  File "/openhands/micromamba/envs/openhands/lib/python3.12/typing.py", line 392, in inner
+    @functools.wraps(func)
+
+KeyboardInterrupt
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 16, in <module>
+    from app.models.core import Base, User, UserRole, WorkflowStage
+  File "/workspace/app/models/__init__.py", line 1, in <module>
+    from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage
+  File "/workspace/app/models/core.py", line 10, in <module>
+    import bcrypt
+ModuleNotFoundError: No module named 'bcrypt'
+Traceback (most recent call last):
+  File "/workspace/app/main.py", line 1, in <module>
+    from fastapi import FastAPI, HTTPException, Depends
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/__init__.py", line 7, in <module>
+    from .applications import FastAPI as FastAPI
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/applications.py", line 16, in <module>
+    from fastapi import routing
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/routing.py", line 22, in <module>
+    from fastapi import params
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/params.py", line 5, in <module>
+    from fastapi.openapi.models import Example
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/openapi/models.py", line 4, in <module>
+    from fastapi._compat import (
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/_compat.py", line 20, in <module>
+    from fastapi.exceptions import RequestErrorModel
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/fastapi/exceptions.py", line 139, in <module>
+    RequestErrorModel: Type[BaseModel] = create_model("Request")
+                                         ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/pydantic/main.py", line 1441, in create_model
+    return meta(
+           ^^^^^
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/pydantic/_internal/_model_construction.py", line 92, in __new__
+    private_attributes = inspect_namespace(
+                         ^^^^^^^^^^^^^^^^^^
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/pydantic/_internal/_model_construction.py", line 308, in inspect_namespace
+    from ..fields import FieldInfo, ModelPrivateAttr, PrivateAttr
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/pydantic/fields.py", line 19, in <module>
+    import annotated_types
+  File "/workspace/venvs/feature-test/lib/python3.12/site-packages/annotated_types/__init__.py", line 141, in <module>
+    @dataclass(frozen=True, **SLOTS)
+     ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/openhands/micromamba/envs/openhands/lib/python3.12/dataclasses.py", line 1265, in wrap
+    return _process_class(cls, init, repr, eq, order, unsafe_hash,
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/openhands/micromamba/envs/openhands/lib/python3.12/dataclasses.py", line 1114, in _process_class
+    for fn in _frozen_get_del_attr(cls, field_list, globals):
+              ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/openhands/micromamba/envs/openhands/lib/python3.12/dataclasses.py", line 644, in _frozen_get_del_attr
+    return (_create_fn('__setattr__',
+            ^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/openhands/micromamba/envs/openhands/lib/python3.12/dataclasses.py", line 473, in _create_fn
+    exec(txt, globals, ns)
+  File "<string>", line 0, in <module>
+KeyboardInterrupt
+/workspace/app/main.py:20: MovedIn20Warning: The ``declarative_base()`` function is now available as sqlalchemy.orm.declarative_base(). (deprecated since: 2.0) (Background on SQLAlchemy 2.0 at: https://sqlalche.me/e/b8d9)
+  Base = declarative_base()
+/workspace/app/main.py:47: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [13893]
+INFO:     Waiting for application startup.
+INFO:__main__:Database initialized successfully: postgresql://erp_admin:db_password_123@localhost/erp_test_db
+INFO:__main__:Startup log created successfully
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:56313 (Press CTRL+C to quit)

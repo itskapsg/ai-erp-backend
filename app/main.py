@@ -160,6 +160,8 @@ async def create_log(message: str):
         logger.error(f"Failed to create log: {e}")
         raise HTTPException(status_code=500, detail="Failed to create log")
 
+
+
 if __name__ == "__main__":
     parser = argparse.ArgumentParser(description='ERP System')
     parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
