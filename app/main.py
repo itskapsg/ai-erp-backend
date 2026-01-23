@@ -12,6 +12,7 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # Import our API routers
 from app.api.auth import router as auth_router
 from app.api.partners import router as partners_router
+from app.api.chat import router as chat_router
 from app.database import create_tables, get_db, SessionLocal
 from app.models import Base
 
@@ -40,6 +41,7 @@ app.add_middleware(
 # Include API routers
 app.include_router(auth_router)
 app.include_router(partners_router)
+app.include_router(chat_router, prefix="/api/v1")
 
 # Initialize database
 @app.on_event("startup")
