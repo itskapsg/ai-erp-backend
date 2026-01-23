@@ -33,9 +33,27 @@ if [ $? -ne 0 ]; then
     exit 1
 fi
 
+# Step B.5 (Database Safety): Handle database setup based on instance type
+if [ "$INSTANCE_NAME" = "feature-test" ]; then
+    echo "🔄 Feature-test instance detected - Running snapshot cloning..."
+    ./refresh_test_db.sh
+    if [ $? -ne 0 ]; then
+        echo "❌ Failed to refresh test database"
+        exit 1
+    fi
+    DATABASE_URL="postgresql://erp_admin:db_password_123@localhost/erp_test_db"
+    echo "🔗 Connected to TEST database (erp_test_db)"
+else
+    DATABASE_URL="postgresql://erp_admin:db_password_123@localhost/erp_dev_db"
+    echo "🔗 Connected to DEV database (erp_dev_db)"
+fi
+
+# Export DATABASE_URL for the application
+export DATABASE_URL
+
 # Step C (Launch): Use PM2 to start the app
 echo "🚀 Starting $INSTANCE_NAME with PM2..."
-pm2 start app/main.py --name $INSTANCE_NAME --interpreter venvs/$INSTANCE_NAME/bin/python -- --host 0.0.0.0 --port $PORT_NUMBER
+pm2 start app/main.py --name $INSTANCE_NAME --interpreter venvs/$INSTANCE_NAME/bin/python -e DATABASE_URL="$DATABASE_URL" -e INSTANCE_NAME="$INSTANCE_NAME" -- --host 0.0.0.0 --port $PORT_NUMBER
 
 if [ $? -eq 0 ]; then
     # Step D: Save the process list
