@@ -1,91 +1,80 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
 import os
+import sys
 import uvicorn
 import argparse
-from sqlalchemy import create_engine, Column, Integer, String, DateTime, text
-from sqlalchemy.ext.declarative import declarative_base
-from sqlalchemy.orm import sessionmaker
-from datetime import datetime
 import logging
+
+# Add the parent directory to the Python path for imports
+sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
+
+# Import our API routers
+from app.api.auth import router as auth_router
+from app.api.partners import router as partners_router
+from app.database import create_tables, get_db, SessionLocal
+from app.models import Base
 
 # Configure logging
 logging.basicConfig(level=logging.INFO)
 logger = logging.getLogger(__name__)
 
-# Database setup
-DATABASE_URL = os.getenv("DATABASE_URL", "postgresql://erp_admin:db_password_123@localhost/erp_dev_db")
-engine = create_engine(DATABASE_URL)
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-Base = declarative_base()
-
-# System Logs Model
-class SystemLog(Base):
-    __tablename__ = "system_logs"
-    
-    id = Column(Integer, primary_key=True, index=True)
-    message = Column(String, nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow)
-    instance_name = Column(String, nullable=True)
-
+# Create FastAPI app
 app = FastAPI(
-    title="Scalable ERP System",
-    description="A robust ERP system with dynamic versioning and parallel deployment support",
-    version="1.0.0"
+    title="Dynamic ERP System with Approval Workflow",
+    description="A robust ERP system with JWT authentication and configurable approval policies",
+    version="2.0.0",
+    docs_url="/docs",
+    redoc_url="/redoc"
 )
 
 # Configure CORS for development
 app.add_middleware(
     CORSMiddleware,
-    allow_origins=["*"],
+    allow_origins=["*"],  # In production, specify allowed origins
     allow_credentials=True,
     allow_methods=["*"],
     allow_headers=["*"],
 )
 
+# Include API routers
+app.include_router(auth_router)
+app.include_router(partners_router)
+
 # Initialize database
 @app.on_event("startup")
 async def startup_event():
-    """Initialize database tables and log startup"""
+    """Initialize database tables on startup"""
     try:
-        # Create tables
-        Base.metadata.create_all(bind=engine)
-        logger.info(f"Database initialized successfully: {DATABASE_URL}")
-        
-        # Log startup
-        db = SessionLocal()
-        try:
-            startup_log = SystemLog(
-                message="Phase 1 Initialized",
-                instance_name=os.getenv("INSTANCE_NAME", "unknown")
-            )
-            db.add(startup_log)
-            db.commit()
-            logger.info("Startup log created successfully")
-        except Exception as e:
-            logger.error(f"Failed to create startup log: {e}")
-            db.rollback()
-        finally:
-            db.close()
+        create_tables()
+        logger.info("Database tables created successfully")
+        logger.info("🚀 Dynamic ERP System with Approval Workflow started!")
     except Exception as e:
         logger.error(f"Database initialization failed: {e}")
         raise
 
 @app.get("/")
 async def root():
-    """Root endpoint with basic system information"""
+    """Root endpoint with system information"""
     return {
-        "message": "Welcome to the Scalable ERP System",
+        "message": "🚀 Dynamic ERP System with Approval Workflow",
         "status": "active",
-        "version": "dynamic",
-        "database_url": DATABASE_URL.split('@')[1] if '@' in DATABASE_URL else "unknown"  # Hide credentials
+        "version": "2.0.0",
+        "features": [
+            "JWT Authentication",
+            "Dynamic Approval Policies",
+            "Partner Management",
+            "Role-based Access Control"
+        ],
+        "api_docs": "/docs"
     }
 
 @app.get("/health")
 async def health_check():
-    """Health check endpoint for monitoring and load balancers"""
+    """Health check endpoint for monitoring"""
     try:
         # Test database connection
+        from sqlalchemy import text
         db = SessionLocal()
         db.execute(text("SELECT 1"))
         db.close()
@@ -95,70 +84,16 @@ async def health_check():
         db_status = "disconnected"
     
     return {
-        "status": "active",
-        "version": "dynamic",
-        "service": "erp-backend",
-        "port": str(getattr(app.state, 'port', os.getenv("APP_PORT", "8000"))),
-        "database_status": db_status
+        "status": "healthy",
+        "version": "2.0.0",
+        "service": "dynamic-erp-backend",
+        "database_status": db_status,
+        "features_enabled": [
+            "authentication",
+            "approval_workflow",
+            "partner_management"
+        ]
     }
-
-@app.get("/api/v1/status")
-async def api_status():
-    """API status endpoint with detailed information"""
-    return {
-        "api_version": "v1",
-        "status": "active",
-        "version": "dynamic",
-        "database_url": DATABASE_URL.split('@')[1] if '@' in DATABASE_URL else "unknown",
-        "environment": os.getenv("ENVIRONMENT", "development")
-    }
-
-@app.get("/api/v1/logs")
-async def get_system_logs():
-    """Get all system logs"""
-    try:
-        db = SessionLocal()
-        logs = db.query(SystemLog).order_by(SystemLog.created_at.desc()).limit(50).all()
-        db.close()
-        
-        return {
-            "logs": [
-                {
-                    "id": log.id,
-                    "message": log.message,
-                    "created_at": log.created_at.isoformat(),
-                    "instance_name": log.instance_name
-                }
-                for log in logs
-            ]
-        }
-    except Exception as e:
-        logger.error(f"Failed to fetch logs: {e}")
-        raise HTTPException(status_code=500, detail="Failed to fetch logs")
-
-@app.post("/api/v1/logs")
-async def create_log(message: str):
-    """Create a new system log entry"""
-    try:
-        db = SessionLocal()
-        new_log = SystemLog(
-            message=message,
-            instance_name=os.getenv("INSTANCE_NAME", "unknown")
-        )
-        db.add(new_log)
-        db.commit()
-        db.refresh(new_log)
-        db.close()
-        
-        return {
-            "id": new_log.id,
-            "message": new_log.message,
-            "created_at": new_log.created_at.isoformat(),
-            "instance_name": new_log.instance_name
-        }
-    except Exception as e:
-        logger.error(f"Failed to create log: {e}")
-        raise HTTPException(status_code=500, detail="Failed to create log")
 
 
 

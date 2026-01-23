@@ -104,3 +104,22 @@ class ApprovalMixin:
         """Submit for approval (move from DRAFT to PENDING_APPROVAL)"""
         self.workflow_stage = WorkflowStage.PENDING_APPROVAL
         self.updated_at = datetime.utcnow()
+
+
+class ApprovalPolicy(Base):
+    """
+    The Rulebook: Configurable approval policies for different resources and actions
+    This allows us to toggle approval on/off for specific actions without changing code
+    """
+    __tablename__ = "approval_policies"
+    
+    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    resource = Column(String(50), nullable=False, index=True)  # e.g., 'partner', 'invoice'
+    action = Column(String(50), nullable=False, index=True)    # e.g., 'create', 'update', 'delete'
+    is_active = Column(Boolean, default=True, nullable=False)
+    required_role = Column(SQLEnum(UserRole), nullable=False)
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    
+    def __repr__(self):
+        return f"<ApprovalPolicy(resource='{self.resource}', action='{self.action}', active={self.is_active})>"
