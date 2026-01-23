@@ -2,7 +2,6 @@ from fastapi import FastAPI
 from fastapi.middleware.cors import CORSMiddleware
 import os
 import uvicorn
-import argparse
 
 app = FastAPI(
     title="Scalable ERP System",
@@ -35,7 +34,7 @@ async def health_check():
         "status": "active",
         "version": "dynamic",
         "service": "erp-backend",
-        "port": str(getattr(app.state, 'port', os.getenv("APP_PORT", "8000")))
+        "port": os.getenv("APP_PORT", "8000")
     }
 
 @app.get("/api/v1/status")
@@ -50,15 +49,5 @@ async def api_status():
     }
 
 if __name__ == "__main__":
-    parser = argparse.ArgumentParser(description='ERP System')
-    parser.add_argument('--host', default='0.0.0.0', help='Host to bind to')
-    parser.add_argument('--port', type=int, default=8000, help='Port to bind to')
-    args = parser.parse_args()
-    
-    # Also check environment variable for backward compatibility
-    port = args.port or int(os.getenv("APP_PORT", 8000))
-    
-    # Store port in app state for health endpoint
-    app.state.port = port
-    
-    uvicorn.run(app, host=args.host, port=port)
+    port = int(os.getenv("APP_PORT", 8000))
+    uvicorn.run(app, host="0.0.0.0", port=port)
