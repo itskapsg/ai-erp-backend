@@ -6,12 +6,14 @@ from .namaste import (
     Visit, VisitStatus, VisitMode,
     Accommodation, AccommodationType,
     Transport, TransportType, TransportMode,
-    ItineraryItem, AppointmentStatus
+    ItineraryItem, ItineraryStatus,
+    MealPlan, DietType, MealLocation
 )
 
 __all__ = [
     "Base", "User", "ApprovalMixin", "UserRole", "WorkflowStage", "ApprovalPolicy", 
     "Partner", "PartnerType", "Product", "ProductVariant", "Order", "OrderItem", "OrderStatus",
     "Visit", "VisitStatus", "VisitMode", "Accommodation", "AccommodationType",
-    "Transport", "TransportType", "TransportMode", "ItineraryItem", "AppointmentStatus"
+    "Transport", "TransportType", "TransportMode", "ItineraryItem", "ItineraryStatus",
+    "MealPlan", "DietType", "MealLocation"
 ]

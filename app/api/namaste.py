@@ -2,7 +2,7 @@
 Project Namaste - Customer Visit Management API
 
 This module provides REST API endpoints for managing customer visits,
-accommodation, transport, and supplier itineraries.
+accommodation, transport, supplier itineraries, and meal planning.
 
 Endpoints:
 - POST /api/v1/namaste/: Create Visit
@@ -11,9 +11,11 @@ Endpoints:
 - GET /api/v1/namaste/{id}/: Get visit details
 - POST /api/v1/namaste/{id}/accommodation/: Add accommodation
 - POST /api/v1/namaste/{id}/transport/: Add transport
+- POST /api/v1/namaste/{id}/meal-plan/: Add meal plan
 """
 
-from datetime import datetime, date
+from datetime import datetime
+from datetime import date as date_type
 from typing import List, Optional, Dict, Any
 from fastapi import APIRouter, Depends, HTTPException, Query
 from pydantic import BaseModel, Field
@@ -22,7 +24,8 @@ from sqlalchemy.orm import Session
 from app.database import get_db
 from app.models.core import User
 from app.models.namaste import (
-    VisitMode, AccommodationType, TransportType, TransportMode, AppointmentStatus
+    VisitMode, AccommodationType, TransportType, TransportMode, ItineraryStatus,
+    DietType, MealLocation
 )
 from app.services.namaste_service import NamasteService
 from app.api.auth import get_current_user
@@ -61,6 +64,15 @@ class AddAppointmentRequest(BaseModel):
     auto_confirm: bool = Field(False, description="Auto-confirm the appointment")
 
 
+class AddMealPlanRequest(BaseModel):
+    date: date_type = Field(..., description="Date for the meal plan")
+    diet: DietType = Field(DietType.STANDARD, description="Dietary preference")
+    breakfast: bool = Field(False, description="Include breakfast")
+    lunch: MealLocation = Field(MealLocation.OFFICE, description="Lunch location")
+    dinner: MealLocation = Field(MealLocation.RESTAURANT, description="Dinner location")
+    special_notes: Optional[str] = Field(None, description="Special dietary requirements or notes")
+
+
 class VisitResponse(BaseModel):
     id: str
     customer_id: str
@@ -77,7 +89,7 @@ class VisitResponse(BaseModel):
 
 
 class BedAvailabilityResponse(BaseModel):
-    date: date
+    date: date_type
     total_beds: int
     available_beds: List[int]
     occupied_beds: List[int]
@@ -295,7 +307,7 @@ async def add_appointment(
 
 @router.get("/beds/availability", response_model=BedAvailabilityResponse)
 async def check_bed_availability(
-    check_date: date = Query(..., description="Date to check bed availability"),
+    check_date: date_type = Query(..., description="Date to check bed availability"),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -316,8 +328,8 @@ async def check_bed_availability(
 
 @router.get("/reports/occupancy", response_model=Dict[str, Any])
 async def get_occupancy_report(
-    start_date: date = Query(..., description="Report start date"),
-    end_date: date = Query(..., description="Report end date"),
+    start_date: date_type = Query(..., description="Report start date"),
+    end_date: date_type = Query(..., description="Report end date"),
     db: Session = Depends(get_db),
     current_user: User = Depends(get_current_user)
 ):
@@ -334,3 +346,41 @@ async def get_occupancy_report(
         
     except Exception as e:
         raise HTTPException(status_code=500, detail=f"Failed to generate occupancy report: {str(e)}")
+
+
+@router.post("/{visit_id}/meal-plan", response_model=Dict[str, Any])
+async def add_meal_plan(
+    visit_id: str,
+    request: AddMealPlanRequest,
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Add or update meal plan for a visit
+    
+    Creates a meal plan for a specific date. If a plan already exists for that date,
+    it will be updated. Generates alerts for office lunch orders and special dietary requirements.
+    """
+    try:
+        meal_plan = NamasteService.add_meal_plan(db, visit_id, request)
+        
+        return {
+            "success": True,
+            "message": "Meal plan added successfully",
+            "meal_plan": {
+                "id": str(meal_plan.id),
+                "visit_id": str(meal_plan.visit_id),
+                "date": meal_plan.date.isoformat(),
+                "diet": meal_plan.diet,
+                "breakfast": meal_plan.breakfast,
+                "lunch": meal_plan.lunch,
+                "dinner": meal_plan.dinner,
+                "special_notes": meal_plan.special_notes
+            }
+        }
+        
+    except ValueError as e:
+        raise HTTPException(status_code=400, detail=str(e))
+    except Exception as e:
+        db.rollback()
+        raise HTTPException(status_code=500, detail=f"Failed to add meal plan: {str(e)}")

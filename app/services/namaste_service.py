@@ -22,7 +22,8 @@ from app.models.namaste import (
     Visit, VisitStatus, VisitMode,
     Accommodation, AccommodationType,
     Transport, TransportType, TransportMode,
-    ItineraryItem, AppointmentStatus
+    ItineraryItem, ItineraryStatus,
+    MealPlan, DietType, MealLocation
 )
 from app.models.masters import Partner, PartnerType
 from app.models.core import User
@@ -322,6 +323,111 @@ class NamasteService:
         logger.info(f"📅 Appointment added: {supplier.name} at {time_str} for {customer_name}")
         
         return itinerary_item
+    
+    def add_meal_plan(
+        self,
+        visit_id: str,
+        date: date,
+        diet: DietType = DietType.STANDARD,
+        breakfast: bool = False,
+        lunch: MealLocation = MealLocation.OFFICE,
+        dinner: MealLocation = MealLocation.RESTAURANT,
+        special_notes: Optional[str] = None
+    ) -> MealPlan:
+        """
+        Add meal plan for a specific date during the visit
+        
+        Args:
+            visit_id: Visit ID
+            date: Date for meal plan
+            diet: Dietary preference
+            breakfast: Whether breakfast arrangement is needed
+            lunch: Lunch location
+            dinner: Dinner location
+            special_notes: Special dietary requirements
+            
+        Returns:
+            Created MealPlan instance
+            
+        Raises:
+            ValueError: If visit not found or date is outside visit period
+        """
+        # Validate visit exists
+        visit = self.db.query(Visit).filter(Visit.id == visit_id).first()
+        if not visit:
+            raise ValueError(f"Visit with ID {visit_id} not found")
+        
+        # Validate date is within visit period
+        visit_start_date = visit.start_date.date()
+        visit_end_date = visit.end_date.date()
+        
+        if date < visit_start_date or date > visit_end_date:
+            raise ValueError(f"Meal plan date {date} is outside visit period ({visit_start_date} to {visit_end_date})")
+        
+        # Check if meal plan already exists for this date
+        existing_plan = self.db.query(MealPlan).filter(
+            and_(
+                MealPlan.visit_id == visit_id,
+                MealPlan.date == date
+            )
+        ).first()
+        
+        if existing_plan:
+            raise ValueError(f"Meal plan already exists for {date}")
+        
+        # Create meal plan
+        meal_plan = MealPlan(
+            visit_id=visit_id,
+            date=date,
+            diet=diet,
+            breakfast=breakfast,
+            lunch=lunch,
+            dinner=dinner,
+            special_notes=special_notes
+        )
+        
+        self.db.add(meal_plan)
+        self.db.commit()
+        self.db.refresh(meal_plan)
+        
+        # Generate alerts for office arrangements
+        if meal_plan.needs_office_lunch:
+            print(f"🍱 Tiffin Alert: Order {diet.value.upper()} lunch for {date}")
+        
+        if meal_plan.needs_breakfast:
+            print(f"🥐 Breakfast Alert: Arrange {diet.value.upper()} breakfast for {date}")
+        
+        # Log special requirements
+        if meal_plan.has_special_requirements:
+            print(f"⚠️  Special Diet Alert: {special_notes} for {date}")
+        
+        logger.info(f"Meal plan created for visit {visit_id} on {date}")
+        
+        return meal_plan
+    
+    @staticmethod
+    def add_meal_plan(db, visit_id, meal_data):
+        # Check for existing plan for this date
+        existing = db.query(MealPlan).filter_by(visit_id=visit_id, date=meal_data.date).first()
+        if existing:
+            # Update existing
+            for key, value in meal_data.dict(exclude_unset=True).items():
+                setattr(existing, key, value)
+            db.commit()
+            db.refresh(existing)
+            return existing
+        
+        # Create new
+        plan = MealPlan(visit_id=visit_id, **meal_data.dict())
+        db.add(plan)
+        db.commit()
+        db.refresh(plan)
+        
+        # ALERT LOGIC
+        if plan.lunch == MealLocation.OFFICE:
+            print(f"🍱 Tiffin Alert: Order {plan.diet} lunch for {plan.date} (Visit {visit_id})")
+            
+        return plan
     
     def get_visit_summary(self, visit_id: str) -> Dict[str, Any]:
         """
