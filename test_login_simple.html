@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+    <title>Simple Login Test</title>
+    <style>
+        body { font-family: Arial, sans-serif; margin: 40px; }
+        .form-group { margin: 10px 0; }
+        input { padding: 8px; margin: 5px; width: 200px; }
+        button { padding: 10px 20px; background: #007bff; color: white; border: none; cursor: pointer; }
+        .result { margin: 20px 0; padding: 10px; border: 1px solid #ccc; }
+        .success { background: #d4edda; border-color: #c3e6cb; }
+        .error { background: #f8d7da; border-color: #f5c6cb; }
+    </style>
+</head>
+<body>
+    <h1>Simple Login Test</h1>
+    
+    <div class="form-group">
+        <input type="text" id="username" placeholder="Username" value="admin">
+    </div>
+    <div class="form-group">
+        <input type="password" id="password" placeholder="Password" value="admin123">
+    </div>
+    <div class="form-group">
+        <button onclick="testLogin()">Test Login</button>
+        <button onclick="testWithAxios()">Test with Axios</button>
+    </div>
+    
+    <div id="result" class="result" style="display: none;"></div>
+
+    <script src="https://cdn.jsdelivr.net/npm/axios/dist/axios.min.js"></script>
+    <script>
+        function showResult(message, isSuccess = false) {
+            const resultDiv = document.getElementById('result');
+            resultDiv.style.display = 'block';
+            resultDiv.className = 'result ' + (isSuccess ? 'success' : 'error');
+            resultDiv.innerHTML = message;
+        }
+
+        async function testLogin() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                showResult('Testing with fetch API...', true);
+                
+                const formData = new FormData();
+                formData.append('username', username);
+                formData.append('password', password);
+                
+                const response = await fetch('http://localhost:8001/api/v1/auth/token', {
+                    method: 'POST',
+                    body: formData
+                });
+                
+                if (response.ok) {
+                    const data = await response.json();
+                    showResult(`
+                        <h3>✅ Login Successful with Fetch!</h3>
+                        <p><strong>Token:</strong> ${data.access_token.substring(0, 50)}...</p>
+                        <p><strong>User:</strong> ${data.username}</p>
+                        <p><strong>Role:</strong> ${data.role}</p>
+                    `, true);
+                } else {
+                    const error = await response.text();
+                    showResult(`❌ Login failed: ${response.status} - ${error}`);
+                }
+            } catch (error) {
+                showResult(`❌ Network error: ${error.message}`);
+            }
+        }
+
+        async function testWithAxios() {
+            const username = document.getElementById('username').value;
+            const password = document.getElementById('password').value;
+            
+            try {
+                showResult('Testing with Axios...', true);
+                
+                const formData = new FormData();
+                formData.append('username', username);
+                formData.append('password', password);
+                
+                const response = await axios.post('http://localhost:8001/api/v1/auth/token', formData, {
+                    headers: {
+                        'Content-Type': 'application/x-www-form-urlencoded',
+                    },
+                });
+                
+                const data = response.data;
+                showResult(`
+                    <h3>✅ Login Successful with Axios!</h3>
+                    <p><strong>Token:</strong> ${data.access_token.substring(0, 50)}...</p>
+                    <p><strong>User:</strong> ${data.username}</p>
+                    <p><strong>Role:</strong> ${data.role}</p>
+                `, true);
+            } catch (error) {
+                if (error.response) {
+                    showResult(`❌ Login failed: ${error.response.status} - ${error.response.data.detail || error.response.statusText}`);
+                } else {
+                    showResult(`❌ Network error: ${error.message}`);
+                }
+            }
+        }
+    </script>
+</body>
+</html>

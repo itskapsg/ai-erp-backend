@@ -7,7 +7,11 @@ import axios from 'axios';
 import { jwtDecode } from 'jwt-decode';
 
 // API Configuration
-const API_BASE_URL = 'http://95.111.253.134:54279/api/v1';
+// Use the same host as the frontend but on port 54279 (backend port)
+const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:54279/api/v1`;
+
+// Debug: Log the API URL
+console.log('🔗 API Base URL:', API_BASE_URL);
 
 // Create axios instance with default config
 const api = axios.create({
@@ -113,6 +117,15 @@ export const partnersAPI = {
     return response.data;
   },
   
+  // Fetch partners by type for order creation
+  fetchPartners: async (type = null) => {
+    const params = new URLSearchParams();
+    if (type) params.append('type', type);
+    
+    const response = await api.get(`/partners/?${params}`);
+    return response.data;
+  },
+  
   getPartner: async (id) => {
     const response = await api.get(`/partners/${id}`);
     return response.data;
@@ -180,6 +193,125 @@ export const approvalsAPI = {
     
     // Filter to only show approved/rejected items
     return data.filter(item => ['approved', 'rejected'].includes(item.workflow_stage));
+  }
+};
+
+// Products API
+export const productsAPI = {
+  // Fetch all products with optional filters
+  fetchProducts: async (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.category) params.append('category', filters.category);
+    if (filters.workflow_stage) params.append('workflow_stage', filters.workflow_stage);
+    if (filters.include_variants !== undefined) params.append('include_variants', filters.include_variants);
+    
+    const response = await api.get(`/products/?${params}`);
+    return response.data;
+  },
+  
+  // Get a specific product with variants
+  getProduct: async (id, includeVariants = true) => {
+    const response = await api.get(`/products/${id}?include_variants=${includeVariants}`);
+    return response.data;
+  },
+  
+  // Create a new product
+  createProduct: async (productData) => {
+    const response = await api.post('/products/', productData);
+    return response.data;
+  },
+  
+  // Update a product
+  updateProduct: async (id, productData) => {
+    const response = await api.put(`/products/${id}`, productData);
+    return response.data;
+  },
+  
+  // Delete a product
+  deleteProduct: async (id) => {
+    const response = await api.delete(`/products/${id}`);
+    return response.data;
+  },
+  
+  // Add a variant to a product
+  addVariant: async (productId, variantData) => {
+    const response = await api.post(`/products/${productId}/variants/`, variantData);
+    return response.data;
+  },
+  
+  // Update a variant
+  updateVariant: async (productId, variantId, variantData) => {
+    const response = await api.put(`/products/${productId}/variants/${variantId}`, variantData);
+    return response.data;
+  },
+  
+  // Delete a variant
+  deleteVariant: async (productId, variantId) => {
+    const response = await api.delete(`/products/${productId}/variants/${variantId}`);
+    return response.data;
+  },
+  
+  // Get product categories (for dropdown)
+  getCategories: async () => {
+    // This would ideally be a separate endpoint, but for now we'll derive from products
+    const products = await api.get('/products/');
+    const categories = [...new Set(products.data.map(p => p.category))];
+    return categories.sort();
+  },
+  
+  // Get pending products count
+  getPendingCount: async () => {
+    const response = await api.get('/products/?workflow_stage=pending_approval');
+    return response.data.length;
+  }
+};
+
+// Orders API
+export const ordersAPI = {
+  // Fetch all orders with optional filters
+  fetchOrders: async (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.buyer_id) params.append('buyer_id', filters.buyer_id);
+    if (filters.seller_id) params.append('seller_id', filters.seller_id);
+    if (filters.status) params.append('status', filters.status);
+    
+    const response = await api.get(`/orders/?${params}`);
+    return response.data;
+  },
+  
+  // Get a specific order
+  getOrder: async (id) => {
+    const response = await api.get(`/orders/${id}`);
+    return response.data;
+  },
+  
+  // Create a new order
+  createOrder: async (orderData) => {
+    const response = await api.post('/orders/', orderData);
+    return response.data;
+  },
+  
+  // Approve or reject an order
+  approveOrder: async (id, action, reason = null) => {
+    const response = await api.post(`/orders/${id}/approval`, {
+      action,
+      reason
+    });
+    return response.data;
+  },
+  
+  // Get pending orders count
+  getPendingCount: async () => {
+    const response = await api.get('/orders/pending/count');
+    return response.data;
+  },
+  
+  // Download order PDF
+  downloadPDF: async (orderId) => {
+    const response = await api.get(`/orders/${orderId}/pdf`, {
+      responseType: 'blob'
+    });
+    return response.data;
   }
 };
 

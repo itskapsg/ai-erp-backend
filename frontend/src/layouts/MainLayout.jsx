@@ -34,7 +34,9 @@ import {
   Notifications,
   Chat,
   Logout,
-  AccountCircle
+  AccountCircle,
+  Inventory,
+  ShoppingCart
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { tokenManager, approvalsAPI } from '../services/api';
@@ -97,7 +99,9 @@ const MainLayout = ({ children }) => {
 
   const menuItems = [
     { text: 'Dashboard', icon: <Dashboard />, path: '/dashboard' },
+    { text: 'Products', icon: <Inventory />, path: '/products' },
     { text: 'Partners', icon: <Business />, path: '/partners' },
+    { text: 'Orders', icon: <ShoppingCart />, path: '/orders' },
     { text: 'Users', icon: <People />, path: '/users' },
     { text: 'Approvals', icon: <Notifications />, path: '/approvals' },
   ];

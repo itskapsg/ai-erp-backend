@@ -13,6 +13,8 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 from app.api.auth import router as auth_router
 from app.api.partners import router as partners_router
 from app.api.products import router as products_router
+from app.api.orders import router as orders_router
+from app.api.approval_policies import router as approval_policies_router
 from app.api.chat import router as chat_router
 from app.database import create_tables, get_db, SessionLocal
 from app.models import Base
@@ -43,6 +45,8 @@ app.add_middleware(
 app.include_router(auth_router)
 app.include_router(partners_router)
 app.include_router(products_router)
+app.include_router(orders_router, prefix="/api/v1")
+app.include_router(approval_policies_router, prefix="/api/v1/approval-policies", tags=["Approval Policies"])
 app.include_router(chat_router, prefix="/api/v1")
 
 # Initialize database
@@ -66,9 +70,10 @@ async def root():
         "version": "2.0.0",
         "features": [
             "JWT Authentication",
-            "Dynamic Approval Policies",
+            "Dynamic Approval Policies with API Management",
             "Partner Management",
             "Product Management with JSONB Variants",
+            "Order Management with Credit Limit Approval",
             "Role-based Access Control"
         ],
         "api_docs": "/docs"
@@ -97,7 +102,8 @@ async def health_check():
             "authentication",
             "approval_workflow",
             "partner_management",
-            "product_management"
+            "product_management",
+            "order_management"
         ]
     }
 

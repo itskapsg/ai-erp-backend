@@ -16,7 +16,9 @@ import ProtectedRoute from './components/ProtectedRoute';
 // Pages
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
+import Products from './pages/Products';
 import Partners from './pages/Partners';
+import Orders from './pages/Orders';
 import Approvals from './pages/Approvals';
 
 // Placeholder pages
@@ -49,10 +51,26 @@ function App() {
             </ProtectedRoute>
           } />
           
+          <Route path="/products" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Products />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          
           <Route path="/partners" element={
             <ProtectedRoute>
               <MainLayout>
                 <Partners />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/orders" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Orders />
               </MainLayout>
             </ProtectedRoute>
           } />
