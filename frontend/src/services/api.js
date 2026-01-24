@@ -137,6 +137,52 @@ export const partnersAPI = {
   }
 };
 
+// Approvals API - Dedicated approval management endpoints
+export const approvalsAPI = {
+  // Fetch all pending approvals across different resources
+  fetchPendingApprovals: async () => {
+    const response = await api.get('/partners/?workflow_stage=pending_approval');
+    return response.data;
+  },
+  
+  // Approve a partner
+  approvePartner: async (id) => {
+    const response = await api.put(`/partners/${id}/approve`, {
+      action: 'approve'
+    });
+    return response.data;
+  },
+  
+  // Reject a partner with reason
+  rejectPartner: async (id, reason) => {
+    const response = await api.put(`/partners/${id}/approve`, {
+      action: 'reject',
+      reason: reason
+    });
+    return response.data;
+  },
+  
+  // Get approval statistics
+  getApprovalStats: async () => {
+    const response = await api.get('/approvals/stats');
+    return response.data;
+  },
+  
+  // Get approval history
+  getApprovalHistory: async (filters = {}) => {
+    const params = new URLSearchParams();
+    if (filters.workflow_stage) params.append('workflow_stage', filters.workflow_stage);
+    if (filters.limit) params.append('limit', filters.limit);
+    
+    // For now, get all partners that are approved or rejected
+    const response = await api.get(`/partners/?${params}`);
+    const data = response.data;
+    
+    // Filter to only show approved/rejected items
+    return data.filter(item => ['approved', 'rejected'].includes(item.workflow_stage));
+  }
+};
+
 // Health check
 export const healthAPI = {
   check: async () => {

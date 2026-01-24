@@ -51,9 +51,18 @@ fi
 # Export DATABASE_URL for the application
 export DATABASE_URL
 
-# Step C (Launch): Use PM2 to start the app
-echo "🚀 Starting $INSTANCE_NAME with PM2..."
-pm2 start app/main.py --name $INSTANCE_NAME --interpreter venvs/$INSTANCE_NAME/bin/python -e DATABASE_URL="$DATABASE_URL" -e INSTANCE_NAME="$INSTANCE_NAME" -- --host 0.0.0.0 --port $PORT_NUMBER
+# Step C (Launch): Use PM2 to start the app with memory limits and hardened config
+echo "🚀 Starting $INSTANCE_NAME with PM2 (Memory Limited & PostgreSQL Enforced)..."
+pm2 start app/main.py \
+    --name $INSTANCE_NAME \
+    --interpreter venvs/$INSTANCE_NAME/bin/python \
+    --max-memory-restart 300M \
+    --restart-delay 3000 \
+    --exp-backoff-restart-delay 100 \
+    -e DATABASE_URL="$DATABASE_URL" \
+    -e INSTANCE_NAME="$INSTANCE_NAME" \
+    -e PYTHONPATH="/workspace" \
+    -- --host 0.0.0.0 --port $PORT_NUMBER
 
 if [ $? -eq 0 ]; then
     # Step D: Save the process list

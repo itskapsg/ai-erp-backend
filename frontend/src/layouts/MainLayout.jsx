@@ -4,7 +4,7 @@
  * Mobile: Collapsible hamburger menu
  */
 
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
 import {
   Box,
   Drawer,
@@ -37,7 +37,8 @@ import {
   AccountCircle
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
-import { tokenManager } from '../services/api';
+import { tokenManager, approvalsAPI } from '../services/api';
+import ChatBot from '../components/ChatBot';
 
 const drawerWidth = 280;
 
@@ -49,8 +50,32 @@ const MainLayout = ({ children }) => {
   
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
+  const [chatOpen, setChatOpen] = useState(false);
+  const [pendingCount, setPendingCount] = useState(0);
   
   const user = tokenManager.getUser();
+
+  // Load pending approvals count
+  useEffect(() => {
+    const loadPendingCount = async () => {
+      try {
+        const data = await approvalsAPI.fetchPendingApprovals();
+        setPendingCount(data.length);
+      } catch (error) {
+        console.error('Error loading pending count:', error);
+        setPendingCount(0);
+      }
+    };
+
+    // Only load for users who can approve
+    if (user && ['admin', 'manager'].includes(user.role)) {
+      loadPendingCount();
+      
+      // Refresh count every 30 seconds
+      const interval = setInterval(loadPendingCount, 30000);
+      return () => clearInterval(interval);
+    }
+  }, [user]);
 
   const handleDrawerToggle = () => {
     setMobileOpen(!mobileOpen);
@@ -113,7 +138,7 @@ const MainLayout = ({ children }) => {
             >
               <ListItemIcon>
                 {item.text === 'Approvals' ? (
-                  <Badge badgeContent={3} color="error">
+                  <Badge badgeContent={pendingCount > 0 ? pendingCount : null} color="error">
                     {item.icon}
                   </Badge>
                 ) : (
@@ -251,7 +276,7 @@ const MainLayout = ({ children }) => {
         {children}
       </Box>
 
-      {/* Floating Chat Button (Future AI Assistant) */}
+      {/* Floating Chat Button - AI Assistant */}
       <Fab
         color="secondary"
         aria-label="chat"
@@ -261,13 +286,16 @@ const MainLayout = ({ children }) => {
           right: 16,
           zIndex: theme.zIndex.speedDial,
         }}
-        onClick={() => {
-          // Future: Open AI Assistant chat
-          console.log('🤖 AI Assistant coming soon!');
-        }}
+        onClick={() => setChatOpen(true)}
       >
         <Chat />
       </Fab>
+
+      {/* AI Assistant Chat Dialog */}
+      <ChatBot 
+        open={chatOpen} 
+        onClose={() => setChatOpen(false)} 
+      />
     </Box>
   );
 };

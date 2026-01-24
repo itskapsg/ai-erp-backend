@@ -17,10 +17,10 @@ import ProtectedRoute from './components/ProtectedRoute';
 import Login from './pages/Login';
 import Dashboard from './pages/Dashboard';
 import Partners from './pages/Partners';
+import Approvals from './pages/Approvals';
 
 // Placeholder pages
 const Users = () => <div>Users Page - Coming Soon</div>;
-const Approvals = () => <div>Approvals Page - Coming Soon</div>;
 const Profile = () => <div>Profile Page - Coming Soon</div>;
 
 function App() {
