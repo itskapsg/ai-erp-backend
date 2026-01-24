@@ -16,6 +16,7 @@ from app.api.products import router as products_router
 from app.api.orders import router as orders_router
 from app.api.approval_policies import router as approval_policies_router
 from app.api.chat import router as chat_router
+from app.api.namaste import router as namaste_router
 from app.database import create_tables, get_db, SessionLocal
 from app.models import Base
 
@@ -48,6 +49,7 @@ app.include_router(products_router)
 app.include_router(orders_router, prefix="/api/v1")
 app.include_router(approval_policies_router, prefix="/api/v1/approval-policies", tags=["Approval Policies"])
 app.include_router(chat_router, prefix="/api/v1")
+app.include_router(namaste_router, prefix="/api/v1/namaste", tags=["Project Namaste"])
 
 # Initialize database
 @app.on_event("startup")
