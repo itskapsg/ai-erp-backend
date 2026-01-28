@@ -3,10 +3,10 @@ from enum import Enum
 from decimal import Decimal
 
 from sqlalchemy import Column, String, Numeric, Integer, ForeignKey, Enum as SQLEnum, Sequence
-from sqlalchemy.dialects.postgresql import UUID
 from sqlalchemy.orm import relationship
 
 from .core import Base, ApprovalMixin
+from .utils import GUID
 
 
 class OrderStatus(Enum):
@@ -23,12 +23,12 @@ class Order(Base, ApprovalMixin):
     """
     __tablename__ = "orders"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     order_number = Column(String(20), nullable=False, unique=True, index=True)
     
     # Agency Business: Buyer and Seller relationships
-    buyer_id = Column(UUID(as_uuid=True), ForeignKey('partners.id'), nullable=False)
-    seller_id = Column(UUID(as_uuid=True), ForeignKey('partners.id'), nullable=False)
+    buyer_id = Column(GUID(), ForeignKey('partners.id'), nullable=False)
+    seller_id = Column(GUID(), ForeignKey('partners.id'), nullable=False)
     
     total_amount = Column(Numeric(15, 2), nullable=False, default=Decimal('0.00'))
     status = Column(SQLEnum(OrderStatus), nullable=False, default=OrderStatus.DRAFT)
@@ -48,9 +48,9 @@ class OrderItem(Base):
     """
     __tablename__ = "order_items"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    order_id = Column(UUID(as_uuid=True), ForeignKey('orders.id'), nullable=False)
-    product_variant_id = Column(UUID(as_uuid=True), ForeignKey('product_variants.id'), nullable=False)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    order_id = Column(GUID(), ForeignKey('orders.id'), nullable=False)
+    product_variant_id = Column(GUID(), ForeignKey('product_variants.id'), nullable=False)
     
     quantity = Column(Integer, nullable=False)
     price = Column(Numeric(15, 2), nullable=False)  # Price at time of booking

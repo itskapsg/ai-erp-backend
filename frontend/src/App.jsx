@@ -20,6 +20,7 @@ import Products from './pages/Products';
 import Partners from './pages/Partners';
 import Orders from './pages/Orders';
 import Approvals from './pages/Approvals';
+import Namaste from './pages/Namaste';
 
 // Placeholder pages
 const Users = () => <div>Users Page - Coming Soon</div>;
@@ -87,6 +88,14 @@ function App() {
             <ProtectedRoute>
               <MainLayout>
                 <Approvals />
+              </MainLayout>
+            </ProtectedRoute>
+          } />
+          
+          <Route path="/namaste" element={
+            <ProtectedRoute>
+              <MainLayout>
+                <Namaste />
               </MainLayout>
             </ProtectedRoute>
           } />

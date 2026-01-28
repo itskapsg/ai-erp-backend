@@ -4,9 +4,11 @@ from enum import Enum
 from typing import Optional
 
 from sqlalchemy import Column, String, Boolean, Text, DateTime, ForeignKey, Enum as SQLEnum
-from sqlalchemy.dialects.postgresql import UUID
+from .utils import GUID
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
+from .utils import GUID
 from sqlalchemy.orm import relationship
+from .utils import GUID
 import bcrypt
 
 Base = declarative_base()
@@ -26,7 +28,7 @@ class WorkflowStage(Enum):
 class User(Base):
     __tablename__ = "users"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(100), unique=True, nullable=False, index=True)
     role = Column(SQLEnum(UserRole), nullable=False, default=UserRole.SALESMAN)
@@ -70,7 +72,7 @@ class ApprovalPolicy(Base):
     """
     __tablename__ = "approval_policies"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     resource = Column(String(50), nullable=False, index=True, comment="Resource type (e.g., 'partner', 'order')")
     action = Column(String(50), nullable=False, index=True, comment="Action type (e.g., 'create', 'update', 'delete')")
     is_active = Column(Boolean, default=True, nullable=False, comment="Whether this policy is active")
@@ -129,7 +131,7 @@ class ApprovalMixin:
     
     @declared_attr
     def approved_by_id(cls):
-        return Column(UUID(as_uuid=True), ForeignKey('users.id'), nullable=True)
+        return Column(GUID(), ForeignKey('users.id'), nullable=True)
     
     @declared_attr
     def approved_by(cls):

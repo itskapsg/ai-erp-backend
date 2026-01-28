@@ -3,8 +3,9 @@ from enum import Enum
 from decimal import Decimal
 
 from sqlalchemy import Column, String, Numeric, Enum as SQLEnum
-from sqlalchemy.dialects.postgresql import UUID
+from .utils import GUID
 from sqlalchemy.orm import relationship
+from .utils import GUID
 
 from .core import Base, ApprovalMixin
 
@@ -21,7 +22,7 @@ class Partner(Base, ApprovalMixin):
     """
     __tablename__ = "partners"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     name = Column(String(200), nullable=False, index=True)
     type = Column(SQLEnum(PartnerType), nullable=False)
     gst_number = Column(String(15), nullable=True, unique=True, index=True)

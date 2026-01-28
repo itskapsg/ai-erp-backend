@@ -16,11 +16,11 @@ from typing import Dict, Any, Optional
 from uuid import uuid4
 
 from sqlalchemy import Column, String, Text, Integer, ForeignKey, UniqueConstraint, DECIMAL, DateTime
-from sqlalchemy.dialects.postgresql import UUID, JSONB
 from sqlalchemy.orm import relationship
 from sqlalchemy.sql import func
 
 from app.models.core import Base, ApprovalMixin
+from app.models.utils import GUID, JSONB
 
 
 class Product(Base, ApprovalMixin):
@@ -33,7 +33,7 @@ class Product(Base, ApprovalMixin):
     __tablename__ = "products"
     
     # Core product information
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid4, index=True)
     name = Column(String(200), nullable=False, index=True, comment="Product name (e.g., 'Banarasi Saree Design 101')")
     base_price = Column(DECIMAL(10, 2), nullable=False, comment="Base price before variant adjustments")
     description = Column(Text, nullable=True, comment="Detailed product description")
@@ -75,8 +75,8 @@ class ProductVariant(Base):
     __tablename__ = "product_variants"
     
     # Core variant information
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid4, index=True)
-    product_id = Column(UUID(as_uuid=True), ForeignKey("products.id"), nullable=False, index=True)
+    id = Column(GUID(), primary_key=True, default=uuid4, index=True)
+    product_id = Column(GUID(), ForeignKey("products.id"), nullable=False, index=True)
     sku = Column(String(100), nullable=False, unique=True, index=True, comment="Stock Keeping Unit - unique identifier")
     
     # JSONB attributes for flexible textile variations

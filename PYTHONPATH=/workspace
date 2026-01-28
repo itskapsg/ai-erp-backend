@@ -3495,3 +3495,91 @@ INFO:__main__:Database tables created successfully
 INFO:__main__:🚀 Dynamic ERP System with Approval Workflow started!
 INFO:     Application startup complete.
 INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [890]
+/workspace/app/main.py:55: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [12312]
+INFO:     Waiting for application startup.
+INFO:__main__:Database tables created successfully
+INFO:__main__:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12312]
+/workspace/app/main.py:55: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [12591]
+INFO:     Waiting for application startup.
+INFO:__main__:Database tables created successfully
+INFO:__main__:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12591]
+/workspace/app/main.py:55: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [12758]
+INFO:     Waiting for application startup.
+INFO:__main__:Database tables created successfully
+INFO:__main__:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12758]
+/workspace/app/main.py:55: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [12915]
+INFO:     Waiting for application startup.
+INFO:__main__:Database tables created successfully
+INFO:__main__:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [12915]
+/workspace/app/main.py:55: DeprecationWarning: 
+        on_event is deprecated, use lifespan event handlers instead.
+
+        Read more about it in the
+        [FastAPI docs for Lifespan Events](https://fastapi.tiangolo.com/advanced/events/).
+        
+  @app.on_event("startup")
+INFO:     Started server process [14578]
+INFO:     Waiting for application startup.
+INFO:__main__:Database tables created successfully
+INFO:__main__:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:app.services.namaste_service:📅 Visit created for Apex Corporation from 2026-01-25 to 2026-01-27
+INFO:app.services.namaste_service:📅 Visit created for Apex Corporation from 2026-01-25 to 2026-01-27
+INFO:app.services.namaste_service:📅 Visit created for Apex Corporation from 2026-01-25 to 2026-01-27

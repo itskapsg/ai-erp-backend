@@ -1,5 +1,7 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 import os
 import sys
 import uvicorn
@@ -109,6 +111,36 @@ async def health_check():
         ]
     }
 
+# Mount static files for frontend
+frontend_dist_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
+if os.path.exists(frontend_dist_path):
+    app.mount("/static", StaticFiles(directory=frontend_dist_path), name="static")
+    logger.info(f"Mounted static files from: {frontend_dist_path}")
+
+# CATCH-ALL ROUTE FOR SPA (Fixes 404 on Refresh)
+# This must be the LAST route defined
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    """
+    Catch-all route for SPA (Single Page Application) support.
+    Returns index.html for non-API routes to let React handle routing.
+    """
+    # If API request (starts with api/), let it fail normally (404)
+    if full_path.startswith("api"):
+        raise HTTPException(status_code=404, detail="API Endpoint not found")
+    
+    # If it's a known static file extension, let it fail normally
+    static_extensions = ['.js', '.css', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2', '.ttf', '.eot']
+    if any(full_path.endswith(ext) for ext in static_extensions):
+        raise HTTPException(status_code=404, detail="Static file not found")
+    
+    # Otherwise, return index.html (React handles the routing)
+    index_path = os.path.join(frontend_dist_path, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    
+    # Fallback if index.html doesn't exist
+    raise HTTPException(status_code=404, detail="Frontend not built")
 
 
 if __name__ == "__main__":

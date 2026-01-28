@@ -315,6 +315,60 @@ export const ordersAPI = {
   }
 };
 
+// Namaste API - Customer Visits Management
+export const namasteAPI = {
+  // Fetch visits with optional filter
+  fetchVisits: async (filter = null) => {
+    const params = new URLSearchParams();
+    if (filter) params.append('status', filter);
+    
+    const response = await api.get(`/namaste/?${params}`);
+    return response.data;
+  },
+  
+  // Create a new visit
+  createVisit: async (visitData) => {
+    const response = await api.post('/namaste/', visitData);
+    return response.data;
+  },
+  
+  // Get a specific visit
+  getVisit: async (id) => {
+    const response = await api.get(`/namaste/${id}`);
+    return response.data;
+  },
+  
+  // Add appointment to visit
+  addAppointment: async (visitId, appointmentData) => {
+    const response = await api.post(`/namaste/${visitId}/itinerary/`, appointmentData);
+    return response.data;
+  },
+  
+  // Add transport to visit
+  addTransport: async (visitId, transportData) => {
+    const response = await api.post(`/namaste/${visitId}/transport/`, transportData);
+    return response.data;
+  },
+  
+  // Add meal plan to visit
+  addMealPlan: async (visitId, mealPlanData) => {
+    const response = await api.post(`/namaste/${visitId}/meal-plan/`, mealPlanData);
+    return response.data;
+  },
+  
+  // Check bed availability
+  checkBedAvailability: async (date) => {
+    const response = await api.get(`/namaste/beds/availability?check_date=${date}`);
+    return response.data;
+  },
+  
+  // Get occupancy report
+  getOccupancyReport: async (startDate, endDate) => {
+    const response = await api.get(`/namaste/reports/occupancy?start_date=${startDate}&end_date=${endDate}`);
+    return response.data;
+  }
+};
+
 // Health check
 export const healthAPI = {
   check: async () => {
