@@ -22,8 +22,9 @@ import Orders from './pages/Orders';
 import Approvals from './pages/Approvals';
 import Namaste from './pages/Namaste';
 
+import Users from './pages/Users';
+
 // Placeholder pages
-const Users = () => <div>Users Page - Coming Soon</div>;
 const Profile = () => <div>Profile Page - Coming Soon</div>;
 
 function App() {
@@ -34,7 +35,7 @@ function App() {
         <Routes>
           {/* Public Routes */}
           <Route path="/login" element={<Login />} />
-          
+
           {/* Protected Routes */}
           <Route path="/" element={
             <ProtectedRoute>
@@ -43,7 +44,7 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/dashboard" element={
             <ProtectedRoute>
               <MainLayout>
@@ -51,7 +52,7 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/products" element={
             <ProtectedRoute>
               <MainLayout>
@@ -59,7 +60,7 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/partners" element={
             <ProtectedRoute>
               <MainLayout>
@@ -67,7 +68,7 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/orders" element={
             <ProtectedRoute>
               <MainLayout>
@@ -75,23 +76,23 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/users" element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={['admin']}>
               <MainLayout>
                 <Users />
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/approvals" element={
-            <ProtectedRoute>
+            <ProtectedRoute allowedRoles={['admin', 'manager']}>
               <MainLayout>
                 <Approvals />
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/namaste" element={
             <ProtectedRoute>
               <MainLayout>
@@ -99,7 +100,7 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           <Route path="/profile" element={
             <ProtectedRoute>
               <MainLayout>
@@ -107,7 +108,7 @@ function App() {
               </MainLayout>
             </ProtectedRoute>
           } />
-          
+
           {/* Catch all route */}
           <Route path="*" element={<Navigate to="/dashboard" replace />} />
         </Routes>

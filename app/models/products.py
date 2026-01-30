@@ -34,12 +34,16 @@ class Product(Base, ApprovalMixin):
     
     # Core product information
     id = Column(GUID(), primary_key=True, default=uuid4, index=True)
+    seller_id = Column(GUID(), ForeignKey("partners.id"), nullable=False, index=True, comment="Link to Supplier/Seller")
     name = Column(String(200), nullable=False, index=True, comment="Product name (e.g., 'Banarasi Saree Design 101')")
+    design_number = Column(String(100), nullable=True, index=True, comment="Supplier's Design Number")
+    quality = Column(String(100), nullable=True, comment="Fabric Quality (e.g., '60Gs Cotton')")
     base_price = Column(DECIMAL(10, 2), nullable=False, comment="Base price before variant adjustments")
     description = Column(Text, nullable=True, comment="Detailed product description")
     category = Column(String(100), nullable=False, index=True, comment="Product category (e.g., 'Sarees', 'Suits')")
     
     # Relationships
+    seller = relationship("Partner", foreign_keys=[seller_id])
     variants = relationship("ProductVariant", back_populates="product", cascade="all, delete-orphan")
     
     def __repr__(self):

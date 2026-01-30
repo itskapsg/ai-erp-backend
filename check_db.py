@@ -1,27 +1,24 @@
+import sys
 import os
-from sqlalchemy import create_engine, text
-from sqlalchemy.orm import sessionmaker
-
-# Database URL from app/database.py
-DATABASE_URL = os.getenv('DATABASE_URL', 'sqlite:///./test_erp.db')
-
-# Create engine
-engine = create_engine(
-    DATABASE_URL,
-    connect_args={'check_same_thread': False} if DATABASE_URL.startswith('sqlite') else {}
-)
-
-# Create session factory
-SessionLocal = sessionmaker(autocommit=False, autoflush=False, bind=engine)
-
-# Create a session
-db = SessionLocal()
-
+sys.path.append(os.getcwd())
 try:
-    # Execute SELECT 1
-    result = db.execute(text('SELECT 1')).scalar()
-    print(f'Database connection successful. Result: {result}')
-except Exception as e:
-    print(f'Database connection failed: {e}')
-finally:
-    db.close()
+    from sqlalchemy import text
+    from app.database import engine
+except ImportError as e:
+    print(f"Import Error: {e}")
+    sys.exit(1)
+
+def check_db():
+    print("Checking Database Connectivity...")
+    try:
+        with engine.connect() as connection:
+            result = connection.execute(text("SELECT 1"))
+            print("Database Connection: OK (SELECT 1 returned successfully)")
+            return True
+    except Exception as e:
+        print(f"Database Connection: FAILED - {e}")
+        return False
+
+if __name__ == "__main__":
+    success = check_db()
+    sys.exit(0 if success else 1)

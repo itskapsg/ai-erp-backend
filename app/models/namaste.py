@@ -21,6 +21,7 @@ class AccommodationType(str, enum.Enum):
     OFFICE_GUEST_HOUSE = "OFFICE_GUEST_HOUSE"
     HOTEL = "HOTEL"
     SELF = "SELF"
+    NONE = "NONE"
 
 class TransportType(str, enum.Enum):
     PICKUP = "PICKUP"
@@ -98,36 +99,57 @@ class Accommodation(Base):
     __tablename__ = "accommodations"
     
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    visit_id = Column(String, ForeignKey("visits.id"), nullable=False)
+    visit_id = Column(GUID(), ForeignKey("visits.id"), nullable=False)
     type = Column(Enum(AccommodationType), nullable=False)
     details = Column(Text, nullable=True)
     bed_assigned = Column(Integer, nullable=True)
     
     visit = relationship("Visit", back_populates="accommodations")
+    
+    @property
+    def accommodation_summary(self):
+        if self.type == AccommodationType.OFFICE_GUEST_HOUSE:
+            return f"Guest House (Bed {self.bed_assigned})"
+        return self.details or self.type.value
 
 class Transport(Base):
     __tablename__ = "transports"
     
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    visit_id = Column(String, ForeignKey("visits.id"), nullable=False)
+    visit_id = Column(GUID(), ForeignKey("visits.id"), nullable=False)
     type = Column(Enum(TransportType), nullable=False)
     mode = Column(Enum(TransportMode), nullable=False)
     driver_details = Column(String, nullable=True)
     time = Column(DateTime, nullable=False)
     
     visit = relationship("Visit", back_populates="transports")
+    
+    @property
+    def transport_summary(self):
+        return f"{self.type.value} via {self.mode.value} at {self.time.strftime('%H:%M')}"
 
 class ItineraryItem(Base):
     __tablename__ = "itinerary_items"
     
     id = Column(String, primary_key=True, default=lambda: str(uuid.uuid4()))
-    visit_id = Column(String, ForeignKey("visits.id"), nullable=False)
-    supplier_id = Column(String, ForeignKey("partners.id"), nullable=False)
+    visit_id = Column(GUID(), ForeignKey("visits.id"), nullable=False)
+    supplier_id = Column(GUID(), ForeignKey("partners.id"), nullable=False)
     appointment_time = Column(DateTime, nullable=False)
     status = Column(Enum(ItineraryStatus), default=ItineraryStatus.PENDING)
     notes = Column(Text, nullable=True)
     
     visit = relationship("Visit", back_populates="itinerary_items")
+    # Supplier relationship needs to be defined if used in property. 
+    # But wait, ItineraryItem doesn't have 'supplier' relationship defined in the file view I saw!
+    # I need to add it or avoid using it.
+    # In NamasteService.get_visit_summary: 'supplier_name': item.supplier.name
+    # So 'supplier' relationship IS expected.
+    
+    supplier = relationship("Partner", foreign_keys=[supplier_id])
+
+    @property
+    def appointment_summary(self):
+        return f"Meeting with {self.supplier.name} at {self.appointment_time.strftime('%H:%M')}"
 
 # --- NEW MEAL PLAN MODEL ---
 class MealPlan(Base):

@@ -2,12 +2,12 @@ module.exports = {
   apps: [
     {
       name: 'erp-backend',
-      script: 'python3',
+      script: '/workspace/venvs/production/bin/python',
       args: '-m uvicorn app.main:app --host 0.0.0.0 --port 54279',
       cwd: '/workspace',
       env: {
         PORT: 54279,
-        DATABASE_URL: "sqlite:///./test_erp.db",
+        DATABASE_URL: "postgresql://erp_admin:db_password_123@localhost/erp_dev_db",
         PYTHONPATH: "/workspace"
       },
       output: '/tmp/erp-backend-out.log',

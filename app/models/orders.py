@@ -14,6 +14,10 @@ class OrderStatus(Enum):
     CONFIRMED = "confirmed"
     CANCELLED = "cancelled"
     PENDING_APPROVAL = "pending_approval"
+    APPROVED = "approved"
+    DISPATCHED = "dispatched"
+    DELIVERED = "delivered"
+    PAYMENT_RECEIVED = "payment_received"
 
 
 class Order(Base, ApprovalMixin):
@@ -31,6 +35,11 @@ class Order(Base, ApprovalMixin):
     seller_id = Column(GUID(), ForeignKey('partners.id'), nullable=False)
     
     total_amount = Column(Numeric(15, 2), nullable=False, default=Decimal('0.00'))
+    
+    # Agency Commission
+    commission_rate = Column(Numeric(5, 2), nullable=False, default=Decimal('0.00')) # Percentage
+    commission_amount = Column(Numeric(15, 2), nullable=False, default=Decimal('0.00')) # Value
+    
     status = Column(SQLEnum(OrderStatus), nullable=False, default=OrderStatus.DRAFT)
     
     # Relationships

@@ -42,6 +42,9 @@ class CreateVisitRequest(BaseModel):
     visit_mode: VisitMode = Field(VisitMode.ACCOMPANIED, description="Visit mode")
     arrival_details: Optional[str] = Field(None, description="Flight/train details")
     ticket_url: Optional[str] = Field(None, description="URL to ticket confirmation")
+    accommodation_type: Optional[AccommodationType] = Field(AccommodationType.NONE, description="Accommodation type")
+    accommodation_details: Optional[str] = Field(None, description="Hotel name or details")
+    preferred_bed: Optional[int] = Field(None, description="Preferred bed (1-5) for guest house")
 
 
 class AddAccommodationRequest(BaseModel):
@@ -121,6 +124,9 @@ async def create_visit(
             visit_mode=request.visit_mode,
             arrival_details=request.arrival_details,
             ticket_url=request.ticket_url,
+            accommodation_type=request.accommodation_type,
+            accommodation_details=request.accommodation_details,
+            preferred_bed=request.preferred_bed,
             user=current_user
         )
         

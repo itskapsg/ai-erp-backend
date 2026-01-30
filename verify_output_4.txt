@@ -1,0 +1,6 @@
+
+--- Verifying Atomic Namaste Booking ---
+Creating Visit with Atomic Payload (Bed 3 requested)...
+Visit Created: c0836950-af75-4d49-bffc-c348f25d504c
+❌ Atomic Verification Failed: Accommodations list: [{'id': '93e14d3d-f851-4012-9b2b-6fdc8f60c1e5', 'type': 'OFFICE_GUEST_HOUSE', 'details': 'Office Guest House - Bed 1', 'bed_assigned': 1, 'summary': 'Guest House (Bed 1)'}]
+Double Check GET /visit: [{'id': '93e14d3d-f851-4012-9b2b-6fdc8f60c1e5', 'type': 'OFFICE_GUEST_HOUSE', 'details': 'Office Guest House - Bed 1', 'bed_assigned': 1, 'summary': 'Guest House (Bed 1)'}]

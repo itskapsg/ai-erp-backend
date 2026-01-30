@@ -54,7 +54,7 @@ import {
   AttachMoney as PriceIcon,
   Close as CloseIcon
 } from '@mui/icons-material';
-import { productsAPI } from '../services/api';
+import { productsAPI, partnersAPI } from '../services/api';
 
 // Status chip component
 const StatusChip = ({ status }) => {
@@ -189,14 +189,14 @@ const VariantBuilder = ({ variants, onVariantsChange }) => {
       <Typography variant="h6" gutterBottom>
         Product Variants
       </Typography>
-      
+
       {/* Add new variant */}
       <Card variant="outlined" sx={{ mb: 2 }}>
         <CardContent>
           <Typography variant="subtitle1" gutterBottom>
             Add New Variant
           </Typography>
-          
+
           {/* Attributes */}
           <Box sx={{ mb: 2 }}>
             <Typography variant="body2" color="text.secondary" gutterBottom>
@@ -250,7 +250,7 @@ const VariantBuilder = ({ variants, onVariantsChange }) => {
                 </Button>
               </Grid>
             </Grid>
-            
+
             {/* Current attributes */}
             <Box sx={{ mt: 1 }}>
               {Object.entries(newVariant.attributes).map(([key, value]) => (
@@ -263,7 +263,7 @@ const VariantBuilder = ({ variants, onVariantsChange }) => {
               ))}
             </Box>
           </Box>
-          
+
           {/* Price and stock */}
           <Grid container spacing={2}>
             <Grid item xs={12} sm={6}>
@@ -283,23 +283,8 @@ const VariantBuilder = ({ variants, onVariantsChange }) => {
                 helperText="Positive for premium, negative for discount"
               />
             </Grid>
-            <Grid item xs={12} sm={6}>
-              <TextField
-                size="small"
-                fullWidth
-                label="Stock Quantity"
-                type="number"
-                value={newVariant.stock_quantity}
-                onChange={(e) => setNewVariant(prev => ({
-                  ...prev,
-                  stock_quantity: parseInt(e.target.value) || 0
-                }))}
-                InputProps={{
-                  startAdornment: <InputAdornment position="start"><InventoryIcon /></InputAdornment>,
-                }}
-              />
-            </Grid>
           </Grid>
+
         </CardContent>
         <CardActions>
           <Button
@@ -312,52 +297,54 @@ const VariantBuilder = ({ variants, onVariantsChange }) => {
           </Button>
         </CardActions>
       </Card>
-      
+
       {/* Existing variants */}
-      {variants.length > 0 && (
-        <Box>
-          <Typography variant="subtitle1" gutterBottom>
-            Variants ({variants.length})
-          </Typography>
-          <List>
-            {variants.map((variant, index) => (
-              <ListItem key={variant.id || index} divider>
-                <ListItemText
-                  primary={
-                    <Box>
-                      {Object.entries(variant.attributes).map(([key, value]) => (
-                        <Chip
-                          key={key}
-                          label={`${key}: ${value}`}
-                          size="small"
-                          sx={{ mr: 0.5, mb: 0.5 }}
-                        />
-                      ))}
-                    </Box>
-                  }
-                  secondary={
-                    <Box sx={{ mt: 1 }}>
-                      <Typography variant="body2" component="span">
-                        Price Adj: ₹{variant.price_adjustment} | Stock: {variant.stock_quantity}
-                      </Typography>
-                    </Box>
-                  }
-                />
-                <ListItemSecondaryAction>
-                  <IconButton
-                    edge="end"
-                    onClick={() => removeVariant(variant.id)}
-                    color="error"
-                  >
-                    <DeleteIcon />
-                  </IconButton>
-                </ListItemSecondaryAction>
-              </ListItem>
-            ))}
-          </List>
-        </Box>
-      )}
-    </Box>
+      {
+        variants.length > 0 && (
+          <Box>
+            <Typography variant="subtitle1" gutterBottom>
+              Variants ({variants.length})
+            </Typography>
+            <List>
+              {variants.map((variant, index) => (
+                <ListItem key={variant.id || index} divider>
+                  <ListItemText
+                    primary={
+                      <Box>
+                        {Object.entries(variant.attributes).map(([key, value]) => (
+                          <Chip
+                            key={key}
+                            label={`${key}: ${value}`}
+                            size="small"
+                            sx={{ mr: 0.5, mb: 0.5 }}
+                          />
+                        ))}
+                      </Box>
+                    }
+                    secondary={
+                      <Box sx={{ mt: 1 }}>
+                        <Typography variant="body2" component="span">
+                          Price Adj: ₹{variant.price_adjustment}
+                        </Typography>
+                      </Box>
+                    }
+                  />
+                  <ListItemSecondaryAction>
+                    <IconButton
+                      edge="end"
+                      onClick={() => removeVariant(variant.id)}
+                      color="error"
+                    >
+                      <DeleteIcon />
+                    </IconButton>
+                  </ListItemSecondaryAction>
+                </ListItem>
+              ))}
+            </List>
+          </Box>
+        )
+      }
+    </Box >
   );
 };
 
@@ -369,11 +356,15 @@ const Products = () => {
   const [createDialogOpen, setCreateDialogOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [productForm, setProductForm] = useState({
-    name: '',
-    description: '',
-    base_price: '',
-    category: ''
+    name: "",
+    description: "",
+    base_price: "",
+    category: "",
+    seller_id: "",
+    design_number: "",
+    quality: ""
   });
+  const [suppliers, setSuppliers] = useState([]);
   const [variants, setVariants] = useState([]);
   const [submitting, setSubmitting] = useState(false);
 
@@ -402,9 +393,24 @@ const Products = () => {
   const columns = [
     {
       field: 'name',
-      headerName: 'Product Name',
+      headerName: 'Product / Design',
       flex: 1,
       minWidth: 200,
+      renderCell: (params) => (
+        <Box>
+          <Typography variant="body2" fontWeight="bold">{params.value}</Typography>
+          {params.row.design_number && (
+            <Typography variant="caption" color="text.secondary">
+              Design: {params.row.design_number}
+            </Typography>
+          )}
+        </Box>
+      )
+    },
+    {
+      field: 'quality',
+      headerName: 'Quality',
+      width: 150,
     },
     {
       field: 'category',
@@ -465,9 +471,22 @@ const Products = () => {
       name: '',
       description: '',
       base_price: '',
-      category: ''
+      category: '',
+      seller_id: '',
+      design_number: '',
+      quality: ''
     });
     setVariants([]);
+    loadSuppliers();
+  };
+
+  const loadSuppliers = async () => {
+    try {
+      const data = await partnersAPI.fetchPartners('supplier');
+      setSuppliers(data);
+    } catch (err) {
+      console.error("Failed to load suppliers");
+    }
   };
 
   const handleCloseDialog = () => {
@@ -486,30 +505,30 @@ const Products = () => {
   const handleSubmit = async () => {
     try {
       setSubmitting(true);
-      
+
       // Create the product
       const productData = {
         ...productForm,
         base_price: parseFloat(productForm.base_price)
       };
-      
+
       const createdProduct = await productsAPI.createProduct(productData);
-      
+
       // Add variants if any
       for (const variant of variants) {
         await productsAPI.addVariant(createdProduct.id, {
           attributes: variant.attributes,
           price_adjustment: variant.price_adjustment,
-          stock_quantity: variant.stock_quantity
+          stock_quantity: 0 // Agency: No stock tracking
         });
       }
-      
+
       // Refresh products list
       await loadProducts();
-      
+
       // Close dialog
       handleCloseDialog();
-      
+
       setError(null);
     } catch (err) {
       console.error('Error creating product:', err);
@@ -533,7 +552,7 @@ const Products = () => {
   const isStepValid = (step) => {
     switch (step) {
       case 0:
-        return productForm.name && productForm.base_price && productForm.category;
+        return productForm.name && productForm.base_price && productForm.category && productForm.seller_id;
       case 1:
         return true; // Variants are optional
       case 2:
@@ -599,9 +618,40 @@ const Products = () => {
                 </Select>
               </FormControl>
             </Grid>
-          </Grid>
+            <Grid item xs={12} sm={6}>
+              <FormControl fullWidth required>
+                <InputLabel>Supplier</InputLabel>
+                <Select
+                  value={productForm.seller_id}
+                  onChange={(e) => setProductForm(prev => ({ ...prev, seller_id: e.target.value }))}
+                  label="Supplier"
+                >
+                  {suppliers.map(s => (
+                    <MenuItem key={s.id} value={s.id}>{s.name}</MenuItem>
+                  ))}
+                </Select>
+              </FormControl>
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Design Number"
+                value={productForm.design_number}
+                onChange={(e) => setProductForm(prev => ({ ...prev, design_number: e.target.value }))}
+              />
+            </Grid>
+            <Grid item xs={12} sm={6}>
+              <TextField
+                fullWidth
+                label="Fabric Quality"
+                value={productForm.quality}
+                onChange={(e) => setProductForm(prev => ({ ...prev, quality: e.target.value }))}
+                placeholder="e.g. 60Gs Cotton"
+              />
+            </Grid>
+          </Grid >
         );
-      
+
       case 1:
         return (
           <VariantBuilder
@@ -609,20 +659,22 @@ const Products = () => {
             onVariantsChange={setVariants}
           />
         );
-      
+
       case 2:
         return (
           <Box>
             <Typography variant="h6" gutterBottom>
               Review Product Details
             </Typography>
-            
+
             <Card variant="outlined" sx={{ mb: 2 }}>
               <CardContent>
                 <Typography variant="subtitle1" gutterBottom>
                   Basic Information
                 </Typography>
                 <Typography><strong>Name:</strong> {productForm.name}</Typography>
+                <Typography><strong>Design:</strong> {productForm.design_number}</Typography>
+                <Typography><strong>Quality:</strong> {productForm.quality}</Typography>
                 <Typography><strong>Category:</strong> {productForm.category}</Typography>
                 <Typography><strong>Base Price:</strong> ₹{productForm.base_price}</Typography>
                 {productForm.description && (
@@ -630,7 +682,7 @@ const Products = () => {
                 )}
               </CardContent>
             </Card>
-            
+
             {variants.length > 0 && (
               <Card variant="outlined">
                 <CardContent>
@@ -659,7 +711,7 @@ const Products = () => {
             )}
           </Box>
         );
-      
+
       default:
         return null;
     }
@@ -724,7 +776,7 @@ const Products = () => {
             </IconButton>
           </Box>
         </DialogTitle>
-        
+
         <DialogContent>
           <Stepper activeStep={activeStep} sx={{ mb: 3 }}>
             {steps.map((label) => (
@@ -733,10 +785,10 @@ const Products = () => {
               </Step>
             ))}
           </Stepper>
-          
+
           {renderStepContent(activeStep)}
         </DialogContent>
-        
+
         <DialogActions sx={{ p: 2 }}>
           <Button
             disabled={activeStep === 0}

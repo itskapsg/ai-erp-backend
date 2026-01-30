@@ -1,5 +1,5 @@
 from .core import Base, User, ApprovalMixin, UserRole, WorkflowStage, ApprovalPolicy
-from .masters import Partner, PartnerType
+from .masters import Partner, PartnerType, PartnerStatus
 from .products import Product, ProductVariant
 from .orders import Order, OrderItem, OrderStatus
 from .namaste import (

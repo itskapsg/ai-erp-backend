@@ -27,6 +27,7 @@ import {
 } from '@mui/material';
 import {
   CheckCircle as ApproveIcon,
+  CheckCircle,
   Cancel as RejectIcon,
   Business as BusinessIcon,
   Person as PersonIcon,
@@ -42,22 +43,22 @@ import { formatDistanceToNow } from 'date-fns';
 const Approvals = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
-  
+
   // State management
   const [pendingApprovals, setPendingApprovals] = useState([]);
   const [approvalHistory, setApprovalHistory] = useState([]);
   const [loading, setLoading] = useState(true);
   const [refreshing, setRefreshing] = useState(false);
   const [currentTab, setCurrentTab] = useState(0);
-  
+
   // Dialog states
   const [rejectDialog, setRejectDialog] = useState({ open: false, partner: null });
   const [rejectReason, setRejectReason] = useState('');
   const [actionLoading, setActionLoading] = useState(null);
-  
+
   // Alert state
   const [alert, setAlert] = useState({ show: false, message: '', severity: 'success' });
-  
+
   // Get current user
   const currentUser = tokenManager.getUser();
   const canApprove = currentUser && ['admin', 'manager'].includes(currentUser.role);
@@ -162,7 +163,7 @@ const Approvals = () => {
 
     const partner = rejectDialog.partner;
     setActionLoading(partner.id);
-    
+
     try {
       await approvalsAPI.rejectPartner(partner.id, rejectReason);
       showAlert(`${partner.name} has been rejected`, 'success');
@@ -183,13 +184,13 @@ const Approvals = () => {
 
   // Render components
   const renderPendingApprovalCard = (partner) => (
-    <Card 
-      key={partner.id} 
-      sx={{ 
-        mb: 2, 
+    <Card
+      key={partner.id}
+      sx={{
+        mb: 2,
         border: '1px solid',
         borderColor: 'warning.light',
-        '&:hover': { 
+        '&:hover': {
           boxShadow: 4,
           borderColor: 'warning.main'
         }
@@ -210,8 +211,8 @@ const Approvals = () => {
               </Typography>
             </Box>
           </Box>
-          <Chip 
-            label={partner.type.toUpperCase()} 
+          <Chip
+            label={partner.type.toUpperCase()}
             color={getPartnerTypeColor(partner.type)}
             size="small"
           />
@@ -233,10 +234,10 @@ const Approvals = () => {
           </Grid>
         </Grid>
 
-        <Chip 
+        <Chip
           icon={<PendingIcon />}
-          label="Pending Approval" 
-          color="warning" 
+          label="Pending Approval"
+          color="warning"
           variant="outlined"
           size="small"
         />
@@ -244,6 +245,16 @@ const Approvals = () => {
 
       {canApprove && (
         <CardActions sx={{ justifyContent: 'flex-end', pt: 0 }}>
+          {/* Show Requested By */}
+          <Box flexGrow={1} pl={1}>
+            <Typography variant="caption" color="text.secondary" display="block">
+              Requested by:
+            </Typography>
+            <Typography variant="body2" fontWeight="medium">
+              {partner.created_by_name || 'System/Unknown'}
+            </Typography>
+          </Box>
+
           <Button
             startIcon={<RejectIcon />}
             color="error"
@@ -254,16 +265,22 @@ const Approvals = () => {
           >
             Reject
           </Button>
-          <Button
-            startIcon={<ApproveIcon />}
-            color="success"
-            variant="contained"
-            size="small"
-            onClick={() => handleApprove(partner)}
-            disabled={actionLoading === partner.id}
-          >
-            {actionLoading === partner.id ? <CircularProgress size={16} /> : 'Approve'}
-          </Button>
+
+          {/* Security: Prevent Self-Approval */}
+          <Tooltip title={partner.created_by_id === currentUser?.id ? "Security: You cannot approve your own request" : ""}>
+            <span>
+              <Button
+                startIcon={<ApproveIcon />}
+                color="success"
+                variant="contained"
+                size="small"
+                onClick={() => handleApprove(partner)}
+                disabled={actionLoading === partner.id || partner.created_by_id === currentUser?.id}
+              >
+                {actionLoading === partner.id ? <CircularProgress size={16} /> : 'Approve'}
+              </Button>
+            </span>
+          </Tooltip>
         </CardActions>
       )}
     </Card>
@@ -287,8 +304,8 @@ const Approvals = () => {
             </Box>
           </Box>
           <Stack direction="row" spacing={1} alignItems="center">
-            <Chip 
-              label={item.workflow_stage.replace('_', ' ').toUpperCase()} 
+            <Chip
+              label={item.workflow_stage.replace('_', ' ').toUpperCase()}
               color={getStatusColor(item.workflow_stage)}
               size="small"
             />
@@ -297,7 +314,7 @@ const Approvals = () => {
             </Typography>
           </Stack>
         </Box>
-        
+
         {item.rejection_reason && (
           <Box mt={2}>
             <Typography variant="body2" color="error.main">
@@ -310,11 +327,11 @@ const Approvals = () => {
   );
 
   const renderEmptyState = () => (
-    <Box 
-      display="flex" 
-      flexDirection="column" 
-      alignItems="center" 
-      justifyContent="center" 
+    <Box
+      display="flex"
+      flexDirection="column"
+      alignItems="center"
+      justifyContent="center"
       py={8}
       textAlign="center"
     >
@@ -325,8 +342,8 @@ const Approvals = () => {
       <Typography variant="body1" color="text.secondary" mb={3}>
         No pending approvals at the moment.
       </Typography>
-      <Button 
-        variant="outlined" 
+      <Button
+        variant="outlined"
         startIcon={<RefreshIcon />}
         onClick={refreshData}
         disabled={refreshing}
@@ -380,14 +397,14 @@ const Approvals = () => {
       {/* Tabs */}
       <Box sx={{ borderBottom: 1, borderColor: 'divider', mb: 3 }}>
         <Tabs value={currentTab} onChange={handleTabChange}>
-          <Tab 
-            icon={<PendingIcon />} 
-            label={`Pending (${pendingApprovals.length})`} 
+          <Tab
+            icon={<PendingIcon />}
+            label={`Pending (${pendingApprovals.length})`}
             iconPosition="start"
           />
-          <Tab 
-            icon={<HistoryIcon />} 
-            label="History" 
+          <Tab
+            icon={<HistoryIcon />}
+            label="History"
             iconPosition="start"
           />
         </Tabs>
@@ -431,8 +448,8 @@ const Approvals = () => {
       )}
 
       {/* Reject Dialog */}
-      <Dialog 
-        open={rejectDialog.open} 
+      <Dialog
+        open={rejectDialog.open}
         onClose={() => setRejectDialog({ open: false, partner: null })}
         maxWidth="sm"
         fullWidth
@@ -458,15 +475,15 @@ const Approvals = () => {
           />
         </DialogContent>
         <DialogActions>
-          <Button 
+          <Button
             onClick={() => setRejectDialog({ open: false, partner: null })}
             disabled={actionLoading}
           >
             Cancel
           </Button>
-          <Button 
-            onClick={handleRejectConfirm} 
-            color="error" 
+          <Button
+            onClick={handleRejectConfirm}
+            color="error"
             variant="contained"
             disabled={!rejectReason.trim() || actionLoading}
           >

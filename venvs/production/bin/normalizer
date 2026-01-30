@@ -1,4 +1,4 @@
-#!/workspace/venvs/production/bin/python3.12
+#!/root/workspace/venvs/production/bin/python3
 # -*- coding: utf-8 -*-
 import re
 import sys

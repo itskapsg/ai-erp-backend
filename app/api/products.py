@@ -20,7 +20,7 @@ from fastapi import APIRouter, Depends, HTTPException, status, Query
 from pydantic import BaseModel, Field, validator
 from sqlalchemy.orm import Session
 
-from app.models import Product, ProductVariant, User, UserRole, WorkflowStage
+from app.models import Product, ProductVariant, User, UserRole, WorkflowStage, Partner, PartnerType
 from app.services.approval_service import ApprovalService
 from app.database import get_db
 from app.api.auth import get_current_active_user, require_role
@@ -33,6 +33,9 @@ router = APIRouter(prefix="/api/v1/products", tags=["products"])
 # Pydantic Models
 class ProductCreate(BaseModel):
     name: str = Field(..., min_length=1, max_length=200, description="Product name")
+    seller_id: UUID = Field(..., description="ID of the Supplier/Seller")
+    design_number: Optional[str] = Field(None, max_length=100, description="Supplier's Design Number")
+    quality: Optional[str] = Field(None, max_length=100, description="Fabric Quality")
     base_price: Decimal = Field(..., ge=0, description="Base price before variant adjustments")
     description: Optional[str] = Field(None, description="Product description")
     category: str = Field(..., min_length=1, max_length=100, description="Product category")
@@ -77,6 +80,9 @@ class ProductVariantResponse(BaseModel):
 class ProductResponse(BaseModel):
     id: str
     name: str
+    seller_id: str
+    design_number: Optional[str]
+    quality: Optional[str]
     base_price: Decimal
     description: Optional[str]
     category: str
@@ -132,9 +138,19 @@ async def create_product(
             detail=f"Product '{product_data.name}' already exists in category '{product_data.category}'"
         )
     
+    # Verify Seller Exists and is a Supplier
+    seller = db.query(Partner).filter(Partner.id == product_data.seller_id).first()
+    if not seller:
+        raise HTTPException(status_code=404, detail="Seller not found")
+    if seller.type != PartnerType.SUPPLIER:
+        raise HTTPException(status_code=400, detail="Selected Partner is not a Supplier")
+    
     # Create product with determined workflow stage
     product = Product(
         name=product_data.name,
+        seller_id=product_data.seller_id,
+        design_number=product_data.design_number,
+        quality=product_data.quality,
         base_price=product_data.base_price,
         description=product_data.description,
         category=product_data.category,
@@ -152,6 +168,9 @@ async def create_product(
     return ProductResponse(
         id=str(product.id),
         name=product.name,
+        seller_id=str(product.seller_id),
+        design_number=product.design_number,
+        quality=product.quality,
         base_price=product.base_price,
         description=product.description,
         category=product.category,
@@ -321,6 +340,9 @@ async def list_products(
         result.append(ProductResponse(
             id=str(product.id),
             name=product.name,
+            seller_id=str(product.seller_id),
+            design_number=product.design_number,
+            quality=product.quality,
             base_price=product.base_price,
             description=product.description,
             category=product.category,
@@ -374,6 +396,9 @@ async def get_product(
     return ProductResponse(
         id=str(product.id),
         name=product.name,
+        seller_id=str(product.seller_id),
+        design_number=product.design_number,
+        quality=product.quality,
         base_price=product.base_price,
         description=product.description,
         category=product.category,

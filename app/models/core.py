@@ -140,6 +140,14 @@ class ApprovalMixin:
     @declared_attr
     def rejection_reason(cls):
         return Column(Text, nullable=True)
+
+    @declared_attr
+    def created_by_id(cls):
+        return Column(GUID(), ForeignKey('users.id'), nullable=True)
+
+    @declared_attr
+    def created_by(cls):
+        return relationship("User", foreign_keys=[cls.created_by_id])
     
     @declared_attr
     def created_at(cls):

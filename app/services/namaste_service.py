@@ -49,25 +49,15 @@ class NamasteService:
         end_date: datetime,
         salesperson_id: Optional[str] = None,
         visit_mode: VisitMode = VisitMode.ACCOMPANIED,
-        arrival_details: Optional[str] = None,
+            arrival_details: Optional[str] = None,
         ticket_url: Optional[str] = None,
+        accommodation_type: Optional[AccommodationType] = AccommodationType.NONE,
+        accommodation_details: Optional[str] = None,
+        preferred_bed: Optional[int] = None,
         user: Optional[User] = None
     ) -> Visit:
         """
-        Create a new customer visit
-        
-        Args:
-            customer_id: UUID of the customer (Partner)
-            start_date: Visit start date and time
-            end_date: Visit end date and time
-            salesperson_id: Optional UUID of assigned salesperson
-            visit_mode: ACCOMPANIED or SOLO
-            arrival_details: Flight/train details
-            ticket_url: URL to ticket confirmation
-            user: User creating the visit
-            
-        Returns:
-            Visit: Created visit object
+        Create a new customer visit with optional accommodation
         """
         # Validate customer exists and is a customer
         customer = self.db.query(Partner).filter_by(id=customer_id).first()
@@ -101,6 +91,21 @@ class NamasteService:
         
         self.db.add(visit)
         self.db.flush()  # Get the ID
+        
+        # Handle Accommodation (Atomic)
+        if accommodation_type and accommodation_type != AccommodationType.NONE:
+            if accommodation_type == AccommodationType.OFFICE_GUEST_HOUSE:
+                # Use internal method for bed assignment logic
+                # We need to explicitly pass visit_id, but the method fetches visit from DB.
+                # Since we flushed, it's in the session.
+                self.assign_guest_house_bed(str(visit.id), preferred_bed)
+            else:
+                accommodation = Accommodation(
+                    visit_id=visit.id,
+                    type=accommodation_type,
+                    details=accommodation_details
+                )
+                self.db.add(accommodation)
         
         logger.info(f"📅 Visit created for {customer.name} from {start_date.date()} to {end_date.date()}")
         

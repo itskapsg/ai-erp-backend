@@ -65,11 +65,11 @@ sleep 2
 
 # 3. Set environment variables
 export DATABASE_URL="postgresql://erp_admin:db_password_123@localhost/erp_dev_db"
-export PYTHONPATH="/workspace"
+export PYTHONPATH="$PWD"
 
 # 4. Ensure virtual environment and dependencies
 echo "📦 Setting up Python environment..."
-cd /workspace
+cd $PWD
 
 if [ ! -d "venvs/production" ]; then
     echo "📦 Creating production virtual environment..."
@@ -82,19 +82,18 @@ venvs/production/bin/pip install -q python-jose[cryptography] python-multipart b
 
 # 5. Start Backend with PM2
 echo "🔥 Starting Backend API (Port 54279)..."
-pm2 start app/main.py \
+pm2 start venvs/production/bin/python \
     --name "erp-backend" \
-    --interpreter venvs/production/bin/python \
     --max-memory-restart 400M \
     --restart-delay 3000 \
     --exp-backoff-restart-delay 100 \
     -e DATABASE_URL="$DATABASE_URL" \
-    -e PYTHONPATH="/workspace" \
-    -- --host 0.0.0.0 --port 54279
+    -e PYTHONPATH="$PWD" \
+    -- -m uvicorn app.main:app --host 0.0.0.0 --port 54279
 
 # 6. Start Frontend with PM2
 echo "🎨 Starting Frontend (Port 56000)..."
-cd /workspace/frontend/dist
+cd $PWD/frontend/dist
 pm2 start "python3 -m http.server 56000 --bind 0.0.0.0" \
     --name "erp-frontend" \
     --max-memory-restart 100M \
@@ -164,8 +163,8 @@ After=network.target postgresql.service
 [Service]
 Type=forking
 User=root
-WorkingDirectory=/workspace
-ExecStart=/workspace/start_erp_permanent.sh
+WorkingDirectory=$PWD
+ExecStart=$PWD/start_erp_permanent.sh
 Restart=always
 RestartSec=10
 

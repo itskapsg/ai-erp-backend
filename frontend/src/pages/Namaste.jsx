@@ -1,4 +1,3 @@
-
 import React, { useState, useEffect } from 'react';
 import {
   Container, Typography, Box, Button, CircularProgress,
@@ -205,10 +204,15 @@ const Namaste = () => {
         end_date: newVisit.end_date,
         notes: newVisit.notes,
         accommodation_type: newVisit.accommodation_type,
-        bed_number: newVisit.bed_number,
+        // Atomic Booking Param:
+        preferred_bed: newVisit.bed_number ? parseInt(newVisit.bed_number) : null,
+        accommodation_details: null // Add details field if needed later
       };
 
       const createdVisit = await namasteAPI.createVisit(visitData);
+
+      // Accommodation is now handled atomically in createVisit.
+      // Removed separate addAccommodation call to prevent double booking/errors.
 
       // Add itinerary
       for (const item of newVisit.itinerary) {
@@ -438,7 +442,7 @@ const Namaste = () => {
                 <TextField
                   label="Pickup Details"
                   name="pickup_details"
-                  value={newVisit.p"pickup_details"}
+                  value={newVisit.pickup_details}
                   onChange={handleVisitChange}
                   fullWidth
                   margin="normal"
@@ -526,18 +530,18 @@ const Namaste = () => {
                       </Box>
                     )}
                     <Box sx={{ mt: 2 }}>
-                        <Typography variant="subtitle2">Itinerary:</Typography>
-                        {visit.itinerary && visit.itinerary.length > 0 ? (
-                            visit.itinerary.map((item, idx) => (
-                                <Typography key={idx} variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.8rem' }}>
-                                    • {moment(item.date).format('DD/MM')}: {item.description}
-                                </Typography>
-                            ))
-                        ) : (
-                            <Typography variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.8rem' }}>
-                                No itinerary planned.
-                            </Typography>
-                        )}
+                      <Typography variant="subtitle2">Itinerary:</Typography>
+                      {visit.itinerary && visit.itinerary.length > 0 ? (
+                        visit.itinerary.map((item, idx) => (
+                          <Typography key={idx} variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.8rem' }}>
+                            • {moment(item.date).format('DD/MM')}: {item.description}
+                          </Typography>
+                        ))
+                      ) : (
+                        <Typography variant="body2" color="text.secondary" sx={{ ml: 1, fontSize: '0.8rem' }}>
+                          No itinerary planned.
+                        </Typography>
+                      )}
                     </Box>
                   </CardContent>
                   <CardActions>

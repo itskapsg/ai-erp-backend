@@ -63,31 +63,32 @@ const Orders = () => {
   const [orders, setOrders] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState(null);
-  
+
   // Dialog state
   const [dialogOpen, setDialogOpen] = useState(false);
   const [activeStep, setActiveStep] = useState(0);
   const [submitting, setSubmitting] = useState(false);
-  
+
   // Form data
   const [selectedBuyer, setSelectedBuyer] = useState('');
   const [selectedSeller, setSelectedSeller] = useState('');
   const [selectedProduct, setSelectedProduct] = useState('');
   const [selectedVariant, setSelectedVariant] = useState('');
   const [quantity, setQuantity] = useState(1);
-  const [cart, setCart] = useState([]);
-  
+
+  const [commissionRate, setCommissionRate] = useState('');
+
   // Dropdown data
   const [buyers, setBuyers] = useState([]);
   const [sellers, setSellers] = useState([]);
   const [products, setProducts] = useState([]);
   const [variants, setVariants] = useState([]);
-  
+
   // Loading states
   const [loadingBuyers, setLoadingBuyers] = useState(false);
   const [loadingSellers, setLoadingSellers] = useState(false);
   const [loadingProducts, setLoadingProducts] = useState(false);
-  
+
   // Result state
   const [orderResult, setOrderResult] = useState(null);
 
@@ -140,7 +141,7 @@ const Orders = () => {
   const handleProductChange = (productId) => {
     setSelectedProduct(productId);
     setSelectedVariant('');
-    
+
     const product = products.find(p => p.id === productId);
     if (product && product.variants) {
       setVariants(product.variants);
@@ -157,7 +158,7 @@ const Orders = () => {
 
     const product = products.find(p => p.id === selectedProduct);
     const variant = variants.find(v => v.id === selectedVariant);
-    
+
     if (!product || !variant) return;
 
     const cartItem = {
@@ -173,7 +174,7 @@ const Orders = () => {
     };
 
     setCart([...cart, cartItem]);
-    
+
     // Reset form
     setSelectedProduct('');
     setSelectedVariant('');
@@ -215,6 +216,7 @@ const Orders = () => {
     setQuantity(1);
     setCart([]);
     setVariants([]);
+    setCommissionRate('');
   };
 
   // Handle next step
@@ -235,25 +237,26 @@ const Orders = () => {
 
     try {
       setSubmitting(true);
-      
+
       const orderData = {
         buyer_id: selectedBuyer,
         seller_id: selectedSeller,
         items: cart.map(item => ({
           variant_id: item.variant_id,
           quantity: item.quantity
-        }))
+        })),
+        commission_rate: commissionRate ? parseFloat(commissionRate) : undefined
       };
 
       const result = await ordersAPI.createOrder(orderData);
       setOrderResult(result);
-      
+
       // Reload orders list
       await loadOrders();
-      
+
       // Move to final step to show result
       setActiveStep(3);
-      
+
     } catch (err) {
       console.error('Error creating order:', err);
       setError('Failed to create order');
@@ -271,13 +274,37 @@ const Orders = () => {
         label: 'Pending Approval'
       };
     }
-    
+
     switch (status) {
       case 'confirmed':
         return {
           color: 'success',
           icon: <CheckCircleIcon />,
           label: 'Confirmed'
+        };
+      case 'approved':
+        return {
+          color: 'info',
+          icon: <CheckCircleIcon />,
+          label: 'Approved'
+        };
+      case 'dispatched':
+        return {
+          color: 'info',
+          icon: <InventoryIcon />,
+          label: 'Dispatched'
+        };
+      case 'delivered':
+        return {
+          color: 'success',
+          icon: <StoreIcon />,
+          label: 'Delivered'
+        };
+      case 'payment_received':
+        return {
+          color: 'success',
+          icon: <CheckCircleIcon />,
+          label: 'Payment Received'
         };
       case 'cancelled':
         return {
@@ -312,7 +339,7 @@ const Orders = () => {
   const handleDownloadPDF = async (orderId, orderNumber) => {
     try {
       const pdfBlob = await ordersAPI.downloadPDF(orderId);
-      
+
       // Create download link
       const url = window.URL.createObjectURL(pdfBlob);
       const link = document.createElement('a');
@@ -320,7 +347,7 @@ const Orders = () => {
       link.download = `Order_${orderNumber}.pdf`;
       document.body.appendChild(link);
       link.click();
-      
+
       // Cleanup
       document.body.removeChild(link);
       window.URL.revokeObjectURL(url);
@@ -340,7 +367,7 @@ const Orders = () => {
               <PersonIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
               Select Buyer and Seller
             </Typography>
-            
+
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <FormControl fullWidth>
@@ -358,13 +385,17 @@ const Orders = () => {
                   </Select>
                 </FormControl>
               </Grid>
-              
+
               <Grid item xs={12} md={6}>
                 <FormControl fullWidth>
                   <InputLabel>Select Seller (Supplier)</InputLabel>
                   <Select
                     value={selectedSeller}
-                    onChange={(e) => setSelectedSeller(e.target.value)}
+                    onChange={(e) => {
+                      setSelectedSeller(e.target.value);
+                      const seller = sellers.find(s => s.id === e.target.value);
+                      if (seller) setCommissionRate(seller.commission_rate || '2.00');
+                    }}
                     disabled={loadingSellers}
                   >
                     {sellers.map((seller) => (
@@ -386,7 +417,7 @@ const Orders = () => {
               <InventoryIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
               Add Items to Cart
             </Typography>
-            
+
             {/* Add Item Form */}
             <Paper sx={{ p: 2, mb: 3 }}>
               <Grid container spacing={2} alignItems="center">
@@ -396,17 +427,19 @@ const Orders = () => {
                     <Select
                       value={selectedProduct}
                       onChange={(e) => handleProductChange(e.target.value)}
-                      disabled={loadingProducts}
+                      disabled={loadingProducts || !selectedSeller}
                     >
-                      {products.map((product) => (
-                        <MenuItem key={product.id} value={product.id}>
-                          {product.name} - {formatCurrency(product.base_price)}
-                        </MenuItem>
-                      ))}
+                      {products
+                        .filter(p => !selectedSeller || p.seller_id === selectedSeller)
+                        .map((product) => (
+                          <MenuItem key={product.id} value={product.id}>
+                            {product.name} - {formatCurrency(product.base_price)}
+                          </MenuItem>
+                        ))}
                     </Select>
                   </FormControl>
                 </Grid>
-                
+
                 <Grid item xs={12} md={3}>
                   <FormControl fullWidth>
                     <InputLabel>Select Variant</InputLabel>
@@ -423,7 +456,7 @@ const Orders = () => {
                     </Select>
                   </FormControl>
                 </Grid>
-                
+
                 <Grid item xs={12} md={2}>
                   <TextField
                     fullWidth
@@ -434,7 +467,7 @@ const Orders = () => {
                     inputProps={{ min: 1 }}
                   />
                 </Grid>
-                
+
                 <Grid item xs={12} md={3}>
                   <Button
                     fullWidth
@@ -456,7 +489,7 @@ const Orders = () => {
                   <CartIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
                   Shopping Cart ({cart.length} items)
                 </Typography>
-                
+
                 {cart.length === 0 ? (
                   <Typography color="text.secondary">
                     No items in cart. Add some products above.
@@ -501,9 +534,9 @@ const Orders = () => {
                         </TableBody>
                       </Table>
                     </TableContainer>
-                    
+
                     <Divider sx={{ my: 2 }} />
-                    
+
                     <Box sx={{ display: 'flex', justifyContent: 'space-between', alignItems: 'center' }}>
                       <Typography variant="h6">
                         Running Total:
@@ -522,13 +555,13 @@ const Orders = () => {
       case 2: // Review & Submit
         const buyer = buyers.find(b => b.id === selectedBuyer);
         const seller = sellers.find(s => s.id === selectedSeller);
-        
+
         return (
           <Box sx={{ minHeight: 300 }}>
             <Typography variant="h6" gutterBottom>
               Review Order Details
             </Typography>
-            
+
             <Grid container spacing={3}>
               <Grid item xs={12} md={6}>
                 <Card>
@@ -542,19 +575,18 @@ const Orders = () => {
                   </CardContent>
                 </Card>
               </Grid>
-              
+
               <Grid item xs={12} md={6}>
                 <Card>
                   <CardContent>
                     <Typography variant="subtitle1" gutterBottom>
                       <StoreIcon sx={{ mr: 1, verticalAlign: 'middle' }} />
-                      Seller Details
                     </Typography>
                     <Typography><strong>Name:</strong> {seller?.name}</Typography>
                   </CardContent>
                 </Card>
               </Grid>
-              
+
               <Grid item xs={12}>
                 <Card>
                   <CardContent>
@@ -562,12 +594,34 @@ const Orders = () => {
                       Order Summary
                     </Typography>
                     <Typography><strong>Items:</strong> {cart.length}</Typography>
+                    <Typography><strong>Items:</strong> {cart.length}</Typography>
                     <Typography><strong>Total Amount:</strong> {formatCurrency(getCartTotal())}</Typography>
-                    
+
+                    <Box sx={{ mt: 2, p: 2, bgcolor: 'primary.50', borderRadius: 1 }}>
+                      <Typography variant="subtitle2" gutterBottom>Agency Commission</Typography>
+                      <Grid container spacing={2} alignItems="center">
+                        <Grid item xs={6}>
+                          <TextField
+                            label="Commission Rate (%)"
+                            type="number"
+                            size="small"
+                            value={commissionRate}
+                            onChange={(e) => setCommissionRate(e.target.value)}
+                            fullWidth
+                          />
+                        </Grid>
+                        <Grid item xs={6}>
+                          <Typography variant="body2">
+                            Amount: {formatCurrency(getCartTotal() * ((parseFloat(commissionRate) || 0) / 100))}
+                          </Typography>
+                        </Grid>
+                      </Grid>
+                    </Box>
+
                     {buyer && getCartTotal() > buyer.credit_limit && (
                       <Alert severity="warning" sx={{ mt: 2 }}>
-                        <strong>Credit Limit Warning:</strong> Order total ({formatCurrency(getCartTotal())}) 
-                        exceeds buyer's credit limit ({formatCurrency(buyer.credit_limit)}). 
+                        <strong>Credit Limit Warning:</strong> Order total ({formatCurrency(getCartTotal())})
+                        exceeds buyer's credit limit ({formatCurrency(buyer.credit_limit)}).
                         This order will require approval.
                       </Alert>
                     )}
@@ -610,7 +664,7 @@ const Orders = () => {
                     </Typography>
                   </Alert>
                 )}
-                
+
                 <Typography variant="body1">
                   <strong>Order Number:</strong> {orderResult.order_number}<br />
                   <strong>Total Amount:</strong> {formatCurrency(orderResult.total_amount)}<br />
@@ -640,7 +694,7 @@ const Orders = () => {
       <Typography variant="h4" gutterBottom>
         Order Management
       </Typography>
-      
+
       {error && (
         <Alert severity="error" sx={{ mb: 2 }}>
           {error}
@@ -740,7 +794,7 @@ const Orders = () => {
         <DialogTitle>
           Create New Order
         </DialogTitle>
-        
+
         <DialogContent>
           <Stepper activeStep={activeStep} sx={{ mb: 3 }}>
             {steps.map((label) => (
@@ -749,21 +803,21 @@ const Orders = () => {
               </Step>
             ))}
           </Stepper>
-          
+
           {renderStepContent(activeStep)}
         </DialogContent>
-        
+
         <DialogActions>
           <Button onClick={handleDialogClose}>
             Cancel
           </Button>
-          
+
           {activeStep > 0 && activeStep < 3 && (
             <Button onClick={handleBack}>
               Back
             </Button>
           )}
-          
+
           {activeStep === 0 && (
             <Button
               onClick={handleNext}
@@ -773,7 +827,7 @@ const Orders = () => {
               Next
             </Button>
           )}
-          
+
           {activeStep === 1 && (
             <Button
               onClick={handleNext}
@@ -783,7 +837,7 @@ const Orders = () => {
               Review Order
             </Button>
           )}
-          
+
           {activeStep === 2 && (
             <Button
               onClick={handleSubmit}
@@ -794,7 +848,7 @@ const Orders = () => {
               {submitting ? 'Creating...' : 'Create Order'}
             </Button>
           )}
-          
+
           {activeStep === 3 && (
             <Button
               onClick={handleDialogClose}

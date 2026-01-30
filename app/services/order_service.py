@@ -12,7 +12,7 @@ from typing import List, Dict, Any, Optional
 from decimal import Decimal
 from sqlalchemy.orm import Session
 
-from app.models import Order, OrderItem, Partner, ProductVariant, User, OrderStatus, WorkflowStage
+from app.models import Order, OrderItem, Partner, ProductVariant, User, OrderStatus, WorkflowStage, PartnerStatus
 from app.services.approval_service import ApprovalService
 from app.services.finance_service import FinanceService
 
@@ -32,7 +32,8 @@ class OrderService:
         buyer_id: str, 
         seller_id: str, 
         items: List[Dict[str, Any]], 
-        user: User
+        user: User,
+        commission_rate: Optional[Decimal] = None
     ) -> Order:
         """
         Create a new order with credit limit validation
@@ -53,14 +54,29 @@ class OrderService:
         buyer = self.db.query(Partner).filter_by(id=buyer_id).first()
         if not buyer:
             raise ValueError(f"Buyer with ID {buyer_id} not found")
+        if buyer.status != PartnerStatus.ACTIVE:
+            raise ValueError(f"Buyer '{buyer.name}' is {buyer.status.value} and cannot place orders.")
         
         seller = self.db.query(Partner).filter_by(id=seller_id).first()
         if not seller:
             raise ValueError(f"Seller with ID {seller_id} not found")
+        if seller.status != PartnerStatus.ACTIVE:
+            raise ValueError(f"Seller '{seller.name}' is {seller.status.value} and cannot accept orders.")
         
         # Calculate order total
         total_amount, order_items_data = self._calculate_order_total(items)
         
+        if commission_rate is None:
+            commission_rate = seller.commission_rate or Decimal('2.00') # Default 2%
+            
+        # Calculate commission amount
+        commission_amount = total_amount * (commission_rate / Decimal('100'))
+        
+        # Check that all items belong to the seller
+        for item_data in order_items_data:
+            if item_data.get('seller_id') and str(item_data['seller_id']) != seller_id:
+                 raise ValueError(f"Product Variant {item_data['variant_id']} does not belong to Seller {seller_id}")
+
         # Generate order number
         order_number = self._generate_order_number()
         
@@ -70,7 +86,10 @@ class OrderService:
             buyer_id=buyer_id,
             seller_id=seller_id,
             total_amount=total_amount,
-            status=OrderStatus.DRAFT
+            commission_rate=commission_rate,
+            commission_amount=commission_amount,
+            status=OrderStatus.DRAFT,
+            created_by_id=user.id
         )
         
         # Check credit limit using REAL financial math (prevents split-order loophole)
@@ -84,6 +103,9 @@ class OrderService:
             # Within credit limit -> Auto-approve
             order.workflow_stage = WorkflowStage.APPROVED
             order.status = OrderStatus.CONFIRMED
+            # Auto-approval by system (created_by is user, approved_by is None or System?)
+            # Ideally we might want to set approved_by to user if it's auto-approved? 
+            # No, leaving it null implies system approval or no manual approval needed.
         
         # Save order to get ID
         self.db.add(order)
@@ -132,7 +154,8 @@ class OrderService:
             order_items_data.append({
                 "variant_id": variant_id,
                 "quantity": quantity,
-                "price": price
+                "price": price,
+                "seller_id": variant.product.seller_id
             })
         
         return total_amount, order_items_data
@@ -215,6 +238,10 @@ class OrderService:
         
         if order.workflow_stage != WorkflowStage.PENDING_APPROVAL:
             raise ValueError(f"Order {order.order_number} is not pending approval")
+            
+        # SECURITY: Prevent Self-Approval
+        if order.created_by_id == approved_by.id:
+            raise ValueError("Security Violation: You cannot approve your own order request.")
         
         # Approve the order
         order.approve(approved_by)

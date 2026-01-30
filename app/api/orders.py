@@ -29,6 +29,7 @@ class OrderItemCreate(BaseModel):
 class OrderCreate(BaseModel):
     buyer_id: str = Field(..., description="Buyer partner UUID")
     seller_id: str = Field(..., description="Seller partner UUID")
+    commission_rate: Optional[Decimal] = Field(None, description="Agency commission percentage")
     items: List[OrderItemCreate] = Field(..., min_items=1, description="Order items")
 
 
@@ -49,11 +50,15 @@ class OrderResponse(BaseModel):
     buyer_id: str
     seller_id: str
     total_amount: str
+    commission_rate: str
+    commission_amount: str
     status: OrderStatus
     workflow_stage: WorkflowStage
     rejection_reason: Optional[str] = None
     created_at: str
     updated_at: str
+    created_by_id: Optional[str] = None
+    created_by_name: Optional[str] = None
     
     # Nested relationships
     buyer_name: Optional[str] = None
@@ -97,7 +102,8 @@ async def create_order(
             buyer_id=order_data.buyer_id,
             seller_id=order_data.seller_id,
             items=items_data,
-            user=current_user
+            user=current_user,
+            commission_rate=order_data.commission_rate
         )
         
         # Prepare response with additional data
@@ -107,11 +113,15 @@ async def create_order(
             "buyer_id": str(order.buyer_id),
             "seller_id": str(order.seller_id),
             "total_amount": str(order.total_amount),
+            "commission_rate": str(order.commission_rate),
+            "commission_amount": str(order.commission_amount),
             "status": order.status,
             "workflow_stage": order.workflow_stage,
             "rejection_reason": order.rejection_reason,
             "created_at": order.created_at.isoformat(),
             "updated_at": order.updated_at.isoformat(),
+            "created_by_id": str(order.created_by_id) if order.created_by_id else None,
+            "created_by_name": order.created_by.username if order.created_by else None,
             "buyer_name": order.buyer.name if order.buyer else None,
             "seller_name": order.seller.name if order.seller else None,
             "items": [
@@ -161,12 +171,17 @@ async def get_orders(
                 "order_number": order.order_number,
                 "buyer_id": str(order.buyer_id),
                 "seller_id": str(order.seller_id),
+                "seller_id": str(order.seller_id),
                 "total_amount": str(order.total_amount),
+                "commission_rate": str(order.commission_rate),
+                "commission_amount": str(order.commission_amount),
                 "status": order.status,
                 "workflow_stage": order.workflow_stage,
                 "rejection_reason": order.rejection_reason,
                 "created_at": order.created_at.isoformat(),
                 "updated_at": order.updated_at.isoformat(),
+                "created_by_id": str(order.created_by_id) if order.created_by_id else None,
+                "created_by_name": order.created_by.username if order.created_by else None,
                 "buyer_name": order.buyer.name if order.buyer else None,
                 "seller_name": order.seller.name if order.seller else None,
                 "items": [
@@ -216,6 +231,8 @@ async def get_order(
             "buyer_id": str(order.buyer_id),
             "seller_id": str(order.seller_id),
             "total_amount": str(order.total_amount),
+            "commission_rate": str(order.commission_rate),
+            "commission_amount": str(order.commission_amount),
             "status": order.status,
             "workflow_stage": order.workflow_stage,
             "rejection_reason": order.rejection_reason,
@@ -280,6 +297,8 @@ async def handle_order_approval(
             "buyer_id": str(order.buyer_id),
             "seller_id": str(order.seller_id),
             "total_amount": str(order.total_amount),
+            "commission_rate": str(order.commission_rate),
+            "commission_amount": str(order.commission_amount),
             "status": order.status,
             "workflow_stage": order.workflow_stage,
             "rejection_reason": order.rejection_reason,

@@ -19,6 +19,7 @@ from app.api.orders import router as orders_router
 from app.api.approval_policies import router as approval_policies_router
 from app.api.chat import router as chat_router
 from app.api.namaste import router as namaste_router
+from app.api.users import router as users_router
 from app.database import create_tables, get_db, SessionLocal
 from app.models import Base
 
@@ -52,6 +53,7 @@ app.include_router(orders_router, prefix="/api/v1")
 app.include_router(approval_policies_router, prefix="/api/v1/approval-policies", tags=["Approval Policies"])
 app.include_router(chat_router, prefix="/api/v1")
 app.include_router(namaste_router, prefix="/api/v1/namaste", tags=["Project Namaste"])
+app.include_router(users_router)
 
 # Initialize database
 @app.on_event("startup")
@@ -114,7 +116,14 @@ async def health_check():
 # Mount static files for frontend
 frontend_dist_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
 if os.path.exists(frontend_dist_path):
+    # Mount /static for explicit static access if needed
     app.mount("/static", StaticFiles(directory=frontend_dist_path), name="static")
+    
+    # Mount /assets which Vite uses by default
+    assets_path = os.path.join(frontend_dist_path, "assets")
+    if os.path.exists(assets_path):
+        app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+        
     logger.info(f"Mounted static files from: {frontend_dist_path}")
 
 # CATCH-ALL ROUTE FOR SPA (Fixes 404 on Refresh)
@@ -129,12 +138,7 @@ async def catch_all(full_path: str):
     if full_path.startswith("api"):
         raise HTTPException(status_code=404, detail="API Endpoint not found")
     
-    # If it's a known static file extension, let it fail normally
-    static_extensions = ['.js', '.css', '.png', '.jpg', '.jpeg', '.gif', '.svg', '.ico', '.woff', '.woff2', '.ttf', '.eot']
-    if any(full_path.endswith(ext) for ext in static_extensions):
-        raise HTTPException(status_code=404, detail="Static file not found")
-    
-    # Otherwise, return index.html (React handles the routing)
+    # Serve index.html (React handles the routing)
     index_path = os.path.join(frontend_dist_path, "index.html")
     if os.path.exists(index_path):
         return FileResponse(index_path)

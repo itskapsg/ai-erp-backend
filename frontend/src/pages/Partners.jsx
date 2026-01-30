@@ -45,7 +45,7 @@ const Partners = () => {
   const theme = useTheme();
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const user = tokenManager.getUser();
-  
+
   const [partners, setPartners] = useState([]);
   const [loading, setLoading] = useState(true);
   const [error, setError] = useState('');
@@ -56,7 +56,11 @@ const Partners = () => {
     name: '',
     type: 'customer',
     gst_number: '',
-    credit_limit: ''
+    credit_limit: '',
+    mobile: '',
+    email: '',
+    address: '',
+    commission_rate: ''
   });
 
   useEffect(() => {
@@ -81,10 +85,14 @@ const Partners = () => {
     try {
       await partnersAPI.createPartner({
         ...formData,
-        credit_limit: parseFloat(formData.credit_limit)
+        credit_limit: parseFloat(formData.credit_limit) || 0,
+        commission_rate: parseFloat(formData.commission_rate) || 0
       });
       setOpenDialog(false);
-      setFormData({ name: '', type: 'customer', gst_number: '', credit_limit: '' });
+      setFormData({
+        name: '', type: 'customer', gst_number: '', credit_limit: '',
+        mobile: '', email: '', address: '', commission_rate: ''
+      });
       loadPartners();
     } catch (err) {
       setError('Failed to create partner');
@@ -108,11 +116,15 @@ const Partners = () => {
     const statusConfig = {
       approved: { color: 'success', icon: <CheckCircle />, label: 'Approved' },
       pending_approval: { color: 'warning', icon: <Pending />, label: 'Pending' },
-      rejected: { color: 'error', icon: <Cancel />, label: 'Rejected' }
+      rejected: { color: 'error', icon: <Cancel />, label: 'Rejected' },
+      // New Statuses
+      active: { color: 'success', label: 'Active' },
+      blacklisted: { color: 'default', icon: <Cancel />, label: 'Blacklisted' },
+      inactive: { color: 'default', label: 'Inactive' }
     };
-    
+
     const config = statusConfig[status] || statusConfig.pending_approval;
-    
+
     return (
       <Chip
         icon={config.icon}
@@ -129,36 +141,58 @@ const Partners = () => {
   // Desktop DataGrid columns
   const columns = [
     { field: 'name', headerName: 'Name', width: 200, flex: 1 },
-    { 
-      field: 'type', 
-      headerName: 'Type', 
+    {
+      field: 'type',
+      headerName: 'Type',
       width: 120,
       renderCell: (params) => (
-        <Chip 
-          label={params.value.toUpperCase()} 
-          size="small" 
+        <Chip
+          label={params.value.toUpperCase()}
+          size="small"
           color={params.value === 'customer' ? 'primary' : 'secondary'}
         />
       )
     },
-    { 
-      field: 'gst_number', 
-      headerName: 'GST Number', 
+    {
+      field: 'gst_number',
+      headerName: 'GST Number',
       width: 150,
-      hide: isMobile 
+      hide: isMobile
     },
-    { 
-      field: 'credit_limit', 
-      headerName: 'Credit Limit', 
+    {
+      field: 'credit_limit',
+      headerName: 'Credit Limit',
       width: 130,
       renderCell: (params) => `₹${parseFloat(params.value).toLocaleString()}`,
       hide: isMobile
     },
-    { 
-      field: 'workflow_stage', 
-      headerName: 'Status', 
-      width: 130,
+    {
+      field: 'workflow_stage',
+      headerName: 'Approval',
+      width: 120,
       renderCell: (params) => getStatusChip(params.value)
+    },
+    {
+      field: 'status',
+      headerName: 'Status',
+      width: 120,
+      renderCell: (params) => getStatusChip(params.value?.toLowerCase() || 'active')
+    },
+    {
+      field: 'commission_rate',
+      headerName: 'Comm %',
+      width: 100,
+      renderCell: (params) => `${params.value}%`
+    },
+    {
+      field: 'outstanding_balance',
+      headerName: 'Balance',
+      width: 130,
+      renderCell: (params) => (
+        <Typography color={parseFloat(params.value) > 0 ? 'error' : 'textPrimary'} variant="body2">
+          ₹{parseFloat(params.value).toLocaleString()}
+        </Typography>
+      )
     },
     {
       field: 'actions',
@@ -167,18 +201,37 @@ const Partners = () => {
       sortable: false,
       hide: !canApprove,
       renderCell: (params) => (
-        params.row.workflow_stage === 'pending_approval' && canApprove ? (
-          <Button
-            size="small"
-            variant="outlined"
-            onClick={() => {
-              setSelectedPartner(params.row);
-              setOpenApprovalDialog(true);
-            }}
-          >
-            Review
-          </Button>
-        ) : null
+        <Box>
+          {params.row.workflow_stage === 'pending_approval' && canApprove && (
+            <Button
+              size="small"
+              variant="outlined"
+              onClick={() => {
+                setSelectedPartner(params.row);
+                setOpenApprovalDialog(true);
+              }}
+            >
+              Review
+            </Button>
+          )
+          }
+          {/* Blacklist Toggle (Admin Only) */}
+          {user?.role === 'admin' && params.row.status !== 'BLACKLISTED' && (
+            <Tooltip title="Blacklist Partner">
+              <IconButton
+                color="error"
+                onClick={async () => {
+                  if (window.confirm(`Blacklist ${params.row.name}?`)) {
+                    await partnersAPI.updatePartnerStatus(params.row.id, 'BLACKLISTED');
+                    loadPartners();
+                  }
+                }}
+              >
+                <Cancel />
+              </IconButton>
+            </Tooltip>
+          )}
+        </Box >
       )
     }
   ];
@@ -193,11 +246,11 @@ const Partners = () => {
           </Typography>
           {getStatusChip(partner.workflow_stage)}
         </Box>
-        
+
         <Stack direction="row" spacing={1} sx={{ mb: 2 }}>
-          <Chip 
-            label={partner.type.toUpperCase()} 
-            size="small" 
+          <Chip
+            label={partner.type.toUpperCase()}
+            size="small"
             color={partner.type === 'customer' ? 'primary' : 'secondary'}
           />
           <Typography variant="body2" color="text.secondary">
@@ -368,6 +421,44 @@ const Partners = () => {
             variant="outlined"
             value={formData.credit_limit}
             onChange={(e) => setFormData({ ...formData, credit_limit: e.target.value })}
+          />
+          <TextField
+            margin="dense"
+            label="Commission Rate (%)"
+            type="number"
+            fullWidth
+            variant="outlined"
+            value={formData.commission_rate}
+            onChange={(e) => setFormData({ ...formData, commission_rate: e.target.value })}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            margin="dense"
+            label="Mobile Number"
+            fullWidth
+            variant="outlined"
+            value={formData.mobile}
+            onChange={(e) => setFormData({ ...formData, mobile: e.target.value })}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            margin="dense"
+            label="Email Address"
+            fullWidth
+            variant="outlined"
+            value={formData.email}
+            onChange={(e) => setFormData({ ...formData, email: e.target.value })}
+            sx={{ mb: 2 }}
+          />
+          <TextField
+            margin="dense"
+            label="Address"
+            fullWidth
+            multiline
+            rows={2}
+            variant="outlined"
+            value={formData.address}
+            onChange={(e) => setFormData({ ...formData, address: e.target.value })}
           />
         </DialogContent>
         <DialogActions>

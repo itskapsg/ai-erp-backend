@@ -1,0 +1,4 @@
+
+--- Verifying Atomic Namaste Booking ---
+Creating Visit with Atomic Payload (Bed 3 requested)...
+❌ Failed to create visit: {"detail":"Failed to create visit: 'Accommodation' object has no attribute 'accommodation_summary'"}
