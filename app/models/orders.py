@@ -12,6 +12,7 @@ from .utils import GUID
 class OrderStatus(Enum):
     DRAFT = "draft"
     CONFIRMED = "confirmed"
+    INVOICED = "invoiced"
     CANCELLED = "cancelled"
     PENDING_APPROVAL = "pending_approval"
     APPROVED = "approved"

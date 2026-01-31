@@ -27,7 +27,7 @@ from app.api.auth import get_current_active_user, require_role
 
 
 # Router
-router = APIRouter(prefix="/api/v1/products", tags=["products"])
+router = APIRouter(prefix="/products", tags=["products"])
 
 
 # Pydantic Models

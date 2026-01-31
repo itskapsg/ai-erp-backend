@@ -12,6 +12,7 @@ from app.models.masters import Partner  # Import to ensure it's registered with 
 from app.models.products import Product, ProductVariant  # Import product models
 from app.models.orders import Order, OrderItem  # Import order models
 from app.models.namaste import Visit, Accommodation, Transport, ItineraryItem, MealPlan  # Import namaste models
+from app.models.staging import StagingEntry  # Import staging models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

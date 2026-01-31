@@ -30299,3 +30299,1718 @@ FROM products
  LIMIT %(param_1)s OFFSET %(param_2)s]
 [parameters: {'param_1': 100, 'param_2': 0}]
 (Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [89951]
+INFO:app.main:Mounted static files from: /root/workspace/frontend/dist
+INFO:     Started server process [118200]
+INFO:     Waiting for application startup.
+INFO:app.main:Database tables created successfully
+INFO:app.main:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [118200]
+INFO:app.main:Mounted static files from: /root/workspace/frontend/dist
+INFO:     Started server process [118423]
+INFO:     Waiting for application startup.
+INFO:app.main:Database tables created successfully
+INFO:app.main:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [118423]
+INFO:app.main:Mounted static files from: /root/workspace/frontend/dist
+INFO:     Started server process [118906]
+INFO:     Waiting for application startup.
+INFO:app.main:Database tables created successfully
+INFO:app.main:🚀 Dynamic ERP System with Approval Workflow started!
+INFO:     Application startup complete.
+INFO:     Uvicorn running on http://0.0.0.0:54279 (Press CTRL+C to quit)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 133, in create_product
+    ).first()
+      ^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2748, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+WHERE products.name = %(name_1)s AND products.category = %(category_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'hvh', 'category_1': 'Sarees', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 133, in create_product
+    ).first()
+      ^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2748, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+WHERE products.name = %(name_1)s AND products.category = %(category_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'hvh', 'category_1': 'Sarees', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 133, in create_product
+    ).first()
+      ^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2748, in first
+    return self.limit(1)._iter().first()  # type: ignore
+           ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+WHERE products.name = %(name_1)s AND products.category = %(category_1)s 
+ LIMIT %(param_1)s]
+[parameters: {'name_1': 'hvh', 'category_1': 'Sarees', 'param_1': 1}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+ERROR:    Exception in ASGI application
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+psycopg2.errors.UndefinedColumn: column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+
+The above exception was the direct cause of the following exception:
+
+Traceback (most recent call last):
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/protocols/http/httptools_impl.py", line 426, in run_asgi
+    result = await app(  # type: ignore[func-returns-value]
+             ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/uvicorn/middleware/proxy_headers.py", line 84, in __call__
+    return await self.app(scope, receive, send)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/applications.py", line 1106, in __call__
+    await super().__call__(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/applications.py", line 122, in __call__
+    await self.middleware_stack(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 184, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/errors.py", line 162, in __call__
+    await self.app(scope, receive, _send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 91, in __call__
+    await self.simple_response(scope, receive, send, request_headers=headers)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/cors.py", line 146, in simple_response
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 79, in __call__
+    raise exc
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/middleware/exceptions.py", line 68, in __call__
+    await self.app(scope, receive, sender)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 20, in __call__
+    raise e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/middleware/asyncexitstack.py", line 17, in __call__
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 718, in __call__
+    await route.handle(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 276, in handle
+    await self.app(scope, receive, send)
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/starlette/routing.py", line 66, in app
+    response = await func(request)
+               ^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 274, in app
+    raw_response = await run_endpoint_function(
+                   ^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/fastapi/routing.py", line 191, in run_endpoint_function
+    return await dependant.call(**values)
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/app/api/products.py", line 317, in list_products
+    products = query.offset(skip).limit(limit).all()
+               ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2693, in all
+    return self._iter().all()  # type: ignore
+           ^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/query.py", line 2847, in _iter
+    result: Union[ScalarResult[_T], Result[_T]] = self.session.execute(
+                                                  ^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2308, in execute
+    return self._execute_internal(
+           ^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/session.py", line 2190, in _execute_internal
+    result: Result[Any] = compile_state_cls.orm_execute_statement(
+                          ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/orm/context.py", line 293, in orm_execute_statement
+    result = conn.execute(
+             ^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1416, in execute
+    return meth(
+           ^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/sql/elements.py", line 516, in _execute_on_connection
+    return connection._execute_clauseelement(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1639, in _execute_clauseelement
+    ret = self._execute_context(
+          ^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1848, in _execute_context
+    return self._exec_single_context(
+           ^^^^^^^^^^^^^^^^^^^^^^^^^^
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1988, in _exec_single_context
+    self._handle_dbapi_exception(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 2343, in _handle_dbapi_exception
+    raise sqlalchemy_exception.with_traceback(exc_info[2]) from e
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/base.py", line 1969, in _exec_single_context
+    self.dialect.do_execute(
+  File "/root/workspace/venvs/production/lib/python3.12/site-packages/sqlalchemy/engine/default.py", line 922, in do_execute
+    cursor.execute(statement, parameters)
+sqlalchemy.exc.ProgrammingError: (psycopg2.errors.UndefinedColumn) column products.created_by_id does not exist
+LINE 1: ...ts.rejection_reason AS products_rejection_reason, products.c...
+                                                             ^
+
+[SQL: SELECT products.id AS products_id, products.seller_id AS products_seller_id, products.name AS products_name, products.design_number AS products_design_number, products.quality AS products_quality, products.base_price AS products_base_price, products.description AS products_description, products.category AS products_category, products.workflow_stage AS products_workflow_stage, products.approved_by_id AS products_approved_by_id, products.rejection_reason AS products_rejection_reason, products.created_by_id AS products_created_by_id, products.created_at AS products_created_at, products.updated_at AS products_updated_at 
+FROM products 
+ LIMIT %(param_1)s OFFSET %(param_2)s]
+[parameters: {'param_1': 100, 'param_2': 0}]
+(Background on this error at: https://sqlalche.me/e/20/f405)
+INFO:app.services.namaste_service:📅 Visit created for Partner 59 Customer from 2026-02-05 to 2026-02-07
+INFO:app.services.namaste_service:📅 Visit created for Partner 67 Customer from 2026-02-09 to 2026-02-13
+INFO:app.services.namaste_service:📅 Visit created for Partner 55 Customer from 2026-02-02 to 2026-02-06
+INFO:app.services.namaste_service:📅 Visit created for Partner 33 Customer from 2026-02-13 to 2026-02-16
+INFO:app.services.namaste_service:📅 Visit created for Partner 79 Customer from 2026-01-31 to 2026-02-07
+INFO:app.services.namaste_service:📅 Visit created for Partner 69 Customer from 2026-02-19 to 2026-02-21
+INFO:app.services.namaste_service:📅 Visit created for Partner 7 Customer from 2026-02-15 to 2026-02-20
+INFO:app.services.namaste_service:📅 Visit created for Partner 51 Customer from 2026-02-20 to 2026-02-27
+INFO:app.services.namaste_service:📅 Visit created for Partner 81 Customer from 2026-02-06 to 2026-02-08
+INFO:app.services.namaste_service:📅 Visit created for Partner 23 Customer from 2026-02-15 to 2026-02-18
+INFO:app.services.namaste_service:📅 Visit created for Partner 57 Customer from 2026-02-15 to 2026-02-22
+INFO:app.services.namaste_service:📅 Visit created for Partner 47 Customer from 2026-02-28 to 2026-03-03
+INFO:app.services.namaste_service:📅 Visit created for Partner 83 Customer from 2026-02-21 to 2026-02-27
+INFO:app.services.namaste_service:📅 Visit created for Approval Test Partner from 2026-02-17 to 2026-02-19
+INFO:app.services.namaste_service:📅 Visit created for Partner 87 Customer from 2026-02-11 to 2026-02-17
+INFO:app.services.namaste_service:📅 Visit created for Partner 83 Customer from 2026-02-21 to 2026-02-28
+INFO:app.services.namaste_service:📅 Visit created for Partner 99 Customer from 2026-03-01 to 2026-03-07
+INFO:app.services.namaste_service:📅 Visit created for Partner 59 Customer from 2026-02-15 to 2026-02-18
+INFO:app.services.namaste_service:📅 Visit created for Partner 5 Customer from 2026-02-16 to 2026-02-19
+INFO:app.services.namaste_service:📅 Visit created for Partner 75 Customer from 2026-02-17 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-09 to 2026-02-16
+INFO:app.services.namaste_service:📅 Visit created for Partner 23 Customer from 2026-02-09 to 2026-02-13
+INFO:app.services.namaste_service:📅 Visit created for Partner 35 Customer from 2026-02-14 to 2026-02-16
+INFO:app.services.namaste_service:📅 Visit created for Partner 55 Customer from 2026-02-07 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 79 Customer from 2026-02-08 to 2026-02-15
+INFO:app.services.namaste_service:📅 Visit created for Partner 69 Customer from 2026-02-03 to 2026-02-07
+INFO:app.services.namaste_service:📅 Visit created for Partner 7 Customer from 2026-02-16 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Partner 21 Customer from 2026-02-03 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 1 Customer from 2026-02-12 to 2026-02-15
+INFO:app.services.namaste_service:📅 Visit created for Partner 83 Customer from 2026-02-11 to 2026-02-18
+INFO:app.services.namaste_service:📅 Visit created for Partner 61 Customer from 2026-02-15 to 2026-02-19
+INFO:app.services.namaste_service:📅 Visit created for Partner 73 Customer from 2026-02-18 to 2026-02-22
+INFO:app.services.namaste_service:📅 Visit created for Partner 37 Customer from 2026-02-15 to 2026-02-22
+INFO:app.services.namaste_service:📅 Visit created for Partner 15 Customer from 2026-02-16 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Partner 39 Customer from 2026-02-09 to 2026-02-16
+INFO:app.services.namaste_service:📅 Visit created for Partner 51 Customer from 2026-02-13 to 2026-02-18
+INFO:app.services.namaste_service:📅 Visit created for Partner 47 Customer from 2026-02-02 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 81 Customer from 2026-02-27 to 2026-03-05
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-15 to 2026-02-20
+INFO:app.services.namaste_service:📅 Visit created for Partner 17 Customer from 2026-02-10 to 2026-02-15
+INFO:app.services.namaste_service:📅 Visit created for Partner 23 Customer from 2026-02-02 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 31 Customer from 2026-02-18 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-20 to 2026-02-25
+INFO:app.services.namaste_service:📅 Visit created for Partner 59 Customer from 2026-02-18 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Partner 11 Customer from 2026-02-05 to 2026-02-10
+INFO:app.services.namaste_service:📅 Visit created for Partner 63 Customer from 2026-02-23 to 2026-03-02
+INFO:app.services.namaste_service:📅 Visit created for Partner 7 Customer from 2026-02-05 to 2026-02-11
+INFO:app.services.namaste_service:📅 Visit created for Partner 9 Customer from 2026-02-09 to 2026-02-16
+INFO:app.services.namaste_service:📅 Visit created for Partner 37 Customer from 2026-02-11 to 2026-02-14
+INFO:app.services.namaste_service:📅 Visit created for Partner 45 Customer from 2026-02-05 to 2026-02-12
+INFO:app.services.namaste_service:📅 Visit created for Partner 55 Customer from 2026-02-05 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 19 Customer from 2026-02-11 to 2026-02-13
+INFO:app.services.namaste_service:📅 Visit created for Partner 71 Customer from 2026-02-20 to 2026-02-27
+INFO:app.services.namaste_service:📅 Visit created for Partner 11 Customer from 2026-02-14 to 2026-02-20
+INFO:app.services.namaste_service:📅 Visit created for Partner 73 Customer from 2026-02-04 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 7 Customer from 2026-02-09 to 2026-02-12
+INFO:app.services.namaste_service:📅 Visit created for Partner 35 Customer from 2026-02-22 to 2026-02-26
+INFO:app.services.namaste_service:📅 Visit created for Partner 89 Customer from 2026-02-17 to 2026-02-20
+INFO:app.services.namaste_service:📅 Visit created for Partner 13 Customer from 2026-02-19 to 2026-02-21
+INFO:app.services.namaste_service:📅 Visit created for Partner 39 Customer from 2026-02-04 to 2026-02-08
+INFO:app.services.namaste_service:📅 Visit created for Partner 23 Customer from 2026-02-09 to 2026-02-11
+INFO:app.services.namaste_service:📅 Visit created for Partner 13 Customer from 2026-02-10 to 2026-02-16
+INFO:app.services.namaste_service:📅 Visit created for Partner 37 Customer from 2026-02-01 to 2026-02-03
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-26 to 2026-03-05
+INFO:app.services.namaste_service:📅 Visit created for Partner 47 Customer from 2026-02-05 to 2026-02-08
+INFO:app.services.namaste_service:📅 Visit created for Partner 65 Customer from 2026-02-22 to 2026-02-27
+INFO:app.services.namaste_service:📅 Visit created for Partner 31 Customer from 2026-02-19 to 2026-02-26
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-09 to 2026-02-15
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-17 to 2026-02-24
+INFO:app.services.namaste_service:📅 Visit created for Partner 61 Customer from 2026-02-19 to 2026-02-21
+INFO:app.services.namaste_service:📅 Visit created for Partner 3 Customer from 2026-02-24 to 2026-03-03
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-22 to 2026-02-24
+INFO:app.services.namaste_service:📅 Visit created for Partner 83 Customer from 2026-02-11 to 2026-02-13
+INFO:app.services.namaste_service:📅 Visit created for Partner 7 Customer from 2026-02-23 to 2026-03-01
+INFO:app.services.namaste_service:📅 Visit created for Partner 67 Customer from 2026-02-21 to 2026-02-26
+INFO:app.services.namaste_service:📅 Visit created for Partner 11 Customer from 2026-02-20 to 2026-02-22
+INFO:app.services.namaste_service:📅 Visit created for Partner 75 Customer from 2026-02-17 to 2026-02-22
+INFO:app.services.namaste_service:📅 Visit created for Partner 35 Customer from 2026-02-13 to 2026-02-18
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-13: 5/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 5 to Partner 35 Customer for visit 35d44663-6a88-47b1-8675-66b80b63c63e
+INFO:app.services.namaste_service:📅 Visit created for Mumbai Fashion House from 2026-02-19 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-12 to 2026-02-19
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-12: 5/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 1 to Salesman Created Partner for visit 0f9cff88-7f37-45e6-a2aa-b5d05c088d96
+INFO:app.services.namaste_service:📅 Visit created for Partner 15 Customer from 2026-02-19 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-02-18 to 2026-02-22
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-18: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Salesman Created Partner for visit 1197f2b1-0c21-432e-931d-a8904a4dba89
+INFO:app.services.namaste_service:📅 Visit created for Partner 5 Customer from 2026-01-31 to 2026-02-05
+INFO:app.services.namaste_service:📅 Visit created for Partner 71 Customer from 2026-02-12 to 2026-02-14
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-12: 4/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 5 to Partner 71 Customer for visit a9d281b0-44b8-40af-8d1b-82ee7cd73edd
+INFO:app.services.namaste_service:📅 Visit created for Partner 63 Customer from 2026-02-16 to 2026-02-23
+INFO:app.services.namaste_service:📅 Visit created for Partner 89 Customer from 2026-02-25 to 2026-03-03
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-25: 5/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 89 Customer for visit 6b42ce98-312c-40bd-a1b9-c0f59dfeaa1e
+INFO:app.services.namaste_service:📅 Visit created for Partner 99 Customer from 2026-02-05 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 23 Customer from 2026-02-20 to 2026-02-24
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-20: 4/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 3 to Partner 23 Customer for visit 997f6836-0f97-4086-ac7a-c50fa04b708f
+INFO:app.services.namaste_service:📅 Visit created for Partner 55 Customer from 2026-02-03 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 5 Customer from 2026-02-23 to 2026-02-26
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-23: 4/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 5 Customer for visit 587c3c3e-83e2-45c4-b9d9-624e5b404ba3
+INFO:app.services.namaste_service:📅 Visit created for Partner 77 Customer from 2026-02-12 to 2026-02-15
+INFO:app.services.namaste_service:📅 Visit created for Partner 43 Customer from 2026-02-07 to 2026-02-13
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-07: 5/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 5 to Partner 43 Customer for visit ab897ede-d590-4745-ae71-b1f39665d056
+INFO:app.services.namaste_service:📅 Visit created for Partner 59 Customer from 2026-02-04 to 2026-02-07
+INFO:app.services.namaste_service:📅 Visit created for Mumbai Fashion House from 2026-02-27 to 2026-03-01
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-27: 4/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 5 to Mumbai Fashion House for visit e8c1fc35-db01-4178-b52b-e6469e1d18b8
+INFO:app.services.namaste_service:📅 Visit created for Partner 79 Customer from 2026-02-23 to 2026-03-01
+INFO:app.services.namaste_service:📅 Visit created for Salesman Created Partner from 2026-01-31 to 2026-02-06
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-01-31: 5/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 5 to Salesman Created Partner for visit 19ec327c-da83-4720-bcf4-2294183e62ca
+INFO:app.services.namaste_service:📅 Visit created for Partner 87 Customer from 2026-02-13 to 2026-02-20
+INFO:app.services.namaste_service:📅 Visit created for Partner 17 Customer from 2026-02-01 to 2026-02-07
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-01: 4/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 1 to Partner 17 Customer for visit e6cc6f98-399b-4a12-9690-77f6d20230ee
+INFO:app.services.namaste_service:📅 Visit created for Partner 15 Customer from 2026-02-06 to 2026-02-09
+INFO:app.services.namaste_service:📅 Visit created for Partner 77 Customer from 2026-02-20 to 2026-02-25
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-20: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 1 to Partner 77 Customer for visit 70633545-1846-4293-8676-f9595b7b6d6a
+INFO:app.services.namaste_service:📅 Visit created for Partner 41 Customer from 2026-02-28 to 2026-03-07
+INFO:app.services.namaste_service:📅 Visit created for Partner 41 Customer from 2026-02-17 to 2026-02-24
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-17: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 41 Customer for visit 5dcb2c33-950b-4f2c-a4b1-0e981d3b97aa
+INFO:app.services.namaste_service:📅 Visit created for Partner 53 Customer from 2026-02-16 to 2026-02-20
+INFO:app.services.namaste_service:📅 Visit created for Partner 71 Customer from 2026-02-20 to 2026-02-26
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-20: 2/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 4 to Partner 71 Customer for visit 127789cf-4826-4100-b525-97048e0f6238
+INFO:app.services.namaste_service:📅 Visit created for Partner 3 Customer from 2026-02-11 to 2026-02-13
+INFO:app.services.namaste_service:📅 Visit created for Approval Test Partner from 2026-01-31 to 2026-02-05
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-01-31: 4/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 1 to Approval Test Partner for visit 9af21e0b-8cf2-4387-acf7-7d9d47c3bf12
+INFO:app.services.namaste_service:📅 Visit created for Partner 23 Customer from 2026-02-16 to 2026-02-21
+INFO:app.services.namaste_service:📅 Visit created for Partner 95 Customer from 2026-02-03 to 2026-02-10
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-03: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 95 Customer for visit 8cb68ea4-116c-49c1-9393-58ce67d5a6bb
+INFO:app.services.namaste_service:📅 Visit created for Partner 95 Customer from 2026-02-20 to 2026-02-27
+INFO:app.services.namaste_service:📅 Visit created for Partner 63 Customer from 2026-02-15 to 2026-02-19
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-15: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 63 Customer for visit 71a4faa9-4164-4e75-bff3-72f43be6ebaa
+INFO:app.services.namaste_service:📅 Visit created for Partner 63 Customer from 2026-02-08 to 2026-02-10
+INFO:app.services.namaste_service:📅 Visit created for Partner 9 Customer from 2026-02-13 to 2026-02-16
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-13: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 9 Customer for visit 9896dd24-2928-4766-87a5-6249ae94920a
+INFO:app.services.namaste_service:📅 Visit created for Partner 51 Customer from 2026-02-21 to 2026-02-25
+INFO:app.services.namaste_service:📅 Visit created for Partner 39 Customer from 2026-02-24 to 2026-03-03
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-24: 1/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 5 to Partner 39 Customer for visit 65ed8e25-3ca8-48de-8147-f63f234f4062
+INFO:app.services.namaste_service:📅 Visit created for Partner 65 Customer from 2026-02-28 to 2026-03-05
+INFO:app.services.namaste_service:📅 Visit created for Partner 77 Customer from 2026-02-24 to 2026-02-27
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-24: 0/5 beds available
+INFO:app.services.namaste_service:📅 Visit created for Partner 1 Customer from 2026-02-01 to 2026-02-03
+INFO:app.services.namaste_service:📅 Visit created for Partner 71 Customer from 2026-02-01 to 2026-02-04
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-01: 3/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 2 to Partner 71 Customer for visit 5c0470ff-1f0e-4613-b9e0-639e499cdca5
+INFO:app.services.namaste_service:📅 Visit created for Partner 31 Customer from 2026-02-12 to 2026-02-18
+INFO:app.services.namaste_service:📅 Visit created for Partner 21 Customer from 2026-02-07 to 2026-02-09
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-07: 2/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 3 to Partner 21 Customer for visit c0e9e986-ec6b-491b-9e7c-ac5a4ae7ad9f
+INFO:app.services.namaste_service:📅 Visit created for Partner 41 Customer from 2026-02-22 to 2026-02-25
+INFO:app.services.namaste_service:📅 Visit created for Partner 29 Customer from 2026-02-25 to 2026-02-27
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-25: 1/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 3 to Partner 29 Customer for visit 24316cc9-0bb4-4cf9-a908-72b14418cdd3
+INFO:app.services.namaste_service:📅 Visit created for Partner 11 Customer from 2026-02-24 to 2026-03-02
+INFO:app.services.namaste_service:📅 Visit created for Partner 13 Customer from 2026-02-07 to 2026-02-13
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-07: 1/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 4 to Partner 13 Customer for visit d705a5c4-83d0-400b-b525-2c67a7ae8aa6
+INFO:app.services.namaste_service:📅 Visit created for Partner 83 Customer from 2026-02-22 to 2026-03-01
+INFO:app.services.namaste_service:📅 Visit created for Partner 19 Customer from 2026-02-27 to 2026-03-02
+INFO:app.services.namaste_service:🛏️  Bed availability for 2026-02-27: 2/5 beds available
+INFO:app.services.namaste_service:🛏️  Assigned Bed 1 to Partner 19 Customer for visit e809399b-cdce-48a9-8424-d1fd668242c0
+INFO:     Shutting down
+INFO:     Waiting for application shutdown.
+INFO:     Application shutdown complete.
+INFO:     Finished server process [118906]

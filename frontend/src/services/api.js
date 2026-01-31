@@ -8,7 +8,7 @@ import { jwtDecode } from 'jwt-decode';
 
 // API Configuration
 // Use the same host as the frontend but on port 54279 (backend port)
-const API_BASE_URL = `${window.location.protocol}//${window.location.hostname}:54279/api/v1`;
+const API_BASE_URL = '/api/v1';
 
 // Debug: Log the API URL
 console.log('🔗 API Base URL:', API_BASE_URL);

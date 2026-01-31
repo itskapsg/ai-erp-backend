@@ -37,7 +37,10 @@ import {
   AccountCircle,
   Inventory,
   ShoppingCart,
-  Handshake
+  Handshake,
+  Message,
+  Receipt,
+  AccountBalance
 } from '@mui/icons-material';
 import { useNavigate, useLocation } from 'react-router-dom';
 import { tokenManager, approvalsAPI } from '../services/api';
@@ -50,12 +53,12 @@ const MainLayout = ({ children }) => {
   const isMobile = useMediaQuery(theme.breakpoints.down('md'));
   const navigate = useNavigate();
   const location = useLocation();
-  
+
   const [mobileOpen, setMobileOpen] = useState(false);
   const [anchorEl, setAnchorEl] = useState(null);
   const [chatOpen, setChatOpen] = useState(false);
   const [pendingCount, setPendingCount] = useState(0);
-  
+
   const user = tokenManager.getUser();
 
   // Load pending approvals count
@@ -73,7 +76,7 @@ const MainLayout = ({ children }) => {
     // Only load for users who can approve
     if (user && ['admin', 'manager'].includes(user.role)) {
       loadPendingCount();
-      
+
       // Refresh count every 30 seconds
       const interval = setInterval(loadPendingCount, 30000);
       return () => clearInterval(interval);
@@ -100,20 +103,24 @@ const MainLayout = ({ children }) => {
 
   const menuItems = [
     { text: 'Dashboard', icon: <Dashboard />, path: '/dashboard' },
+    { text: 'Order Entry', icon: <ShoppingCart />, path: '/sales/orders' }, // NEW
+    { text: 'Reconciliation', icon: <Receipt />, path: '/accounts/reconciliation' }, // NEW
+    { text: 'Ledger', icon: <AccountBalance />, path: '/owner/ledger' }, // NEW
     { text: 'Products', icon: <Inventory />, path: '/products' },
     { text: 'Partners', icon: <Business />, path: '/partners' },
-    { text: 'Orders', icon: <ShoppingCart />, path: '/orders' },
+    { text: 'Orders (Old)', icon: <ShoppingCart />, path: '/orders' },
     { text: 'Namaste', icon: <Handshake />, path: '/namaste' },
     { text: 'Users', icon: <People />, path: '/users' },
+    { text: 'Employee Chat', icon: <Message />, path: '/assistant' },
     { text: 'Approvals', icon: <Notifications />, path: '/approvals' },
   ];
 
   const drawer = (
     <Box>
       <Toolbar>
-        <Typography variant="h6" noWrap component="div" sx={{ 
+        <Typography variant="h6" noWrap component="div" sx={{
           fontWeight: 'bold',
-          color: theme.palette.primary.main 
+          color: theme.palette.primary.main
         }}>
           🚀 AI ERP System
         </Typography>
@@ -188,7 +195,7 @@ const MainLayout = ({ children }) => {
           <Typography variant="h6" noWrap component="div" sx={{ flexGrow: 1 }}>
             {menuItems.find(item => item.path === location.pathname)?.text || 'Dashboard'}
           </Typography>
-          
+
           {/* User Profile */}
           <Box sx={{ display: 'flex', alignItems: 'center', gap: 1 }}>
             <Typography variant="body2" sx={{ display: { xs: 'none', sm: 'block' } }}>
@@ -253,7 +260,7 @@ const MainLayout = ({ children }) => {
         >
           {drawer}
         </Drawer>
-        
+
         {/* Desktop drawer */}
         <Drawer
           variant="permanent"
@@ -298,9 +305,9 @@ const MainLayout = ({ children }) => {
       </Fab>
 
       {/* AI Assistant Chat Dialog */}
-      <ChatBot 
-        open={chatOpen} 
-        onClose={() => setChatOpen(false)} 
+      <ChatBot
+        open={chatOpen}
+        onClose={() => setChatOpen(false)}
       />
     </Box>
   );

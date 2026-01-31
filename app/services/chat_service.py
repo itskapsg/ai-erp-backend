@@ -45,9 +45,9 @@ class ChatService:
                 r'\b(product.*detail|product.*info|tell.*about)\b'
             ],
             'approvals': [
-                r'\b(pending.*approval|approval.*pending|need.*approval|waiting.*approval)\b',
-                r'\b(pending.*partner|partner.*pending)\b',
-                r'\b(approve.*partner|partner.*approve)\b'
+                r'\b(pending.*approvals?|approvals?.*pending|needs?.*approvals?|waiting.*approvals?)\b',
+                r'\b(pending.*partners?|partners?.*pending)\b',
+                r'\b(approve.*partners?|partners?.*approve)\b'
             ],
             'list_partners': [
                 r'\b(list|show|display)\b.*\b(partner|customer|supplier)s?\b',

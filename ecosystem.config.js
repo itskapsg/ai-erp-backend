@@ -2,25 +2,25 @@ module.exports = {
   apps: [
     {
       name: 'erp-backend',
-      script: '/workspace/venvs/production/bin/python',
-      args: '-m uvicorn app.main:app --host 0.0.0.0 --port 54279',
-      cwd: '/workspace',
+      script: '/root/workspace/venv/bin/python3',
+      args: '-m uvicorn app.main:app --host 0.0.0.0 --port 8000',
+      cwd: '/root/workspace',
       env: {
-        PORT: 54279,
+        PORT: 8000,
         DATABASE_URL: "postgresql://erp_admin:db_password_123@localhost/erp_dev_db",
-        PYTHONPATH: "/workspace"
+        PYTHONPATH: "/root/workspace",
+        GEMINI_API_KEY: process.env.GEMINI_API_KEY // Ensure this is loaded if pm2 can access .env, mostly better to assume loading from file
       },
-      output: '/tmp/erp-backend-out.log',
-      error: '/tmp/erp-backend-error.log'
+      output: '/root/workspace/backend.log',
+      error: '/root/workspace/backend_error.log'
     },
     {
       name: 'erp-frontend',
-      cwd: './frontend',
+      cwd: '/root/workspace/frontend',
       script: 'npm',
-      args: 'run dev',
+      args: 'run dev -- --host 0.0.0.0 --port 56000',
       env: {
-        PORT: 56000,
-        VITE_API_URL: "http://95.111.253.134:54279"
+        PORT: 56000
       }
     }
   ]
