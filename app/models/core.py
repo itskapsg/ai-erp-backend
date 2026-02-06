@@ -4,9 +4,11 @@ from enum import Enum
 from typing import Optional
 
 from sqlalchemy import Column, String, Boolean, Text, DateTime, ForeignKey, Enum as SQLEnum
-from sqlalchemy.dialects.postgresql import UUID
+from .utils import GUID
 from sqlalchemy.ext.declarative import declarative_base, declared_attr
+from .utils import GUID
 from sqlalchemy.orm import relationship
+from .utils import GUID
 import bcrypt
 
 Base = declarative_base()
@@ -26,7 +28,7 @@ class WorkflowStage(Enum):
 class User(Base):
     __tablename__ = "users"
     
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
     username = Column(String(50), unique=True, nullable=False, index=True)
     email = Column(String(100), unique=True, nullable=False, index=True)
     role = Column(SQLEnum(UserRole), nullable=False, default=UserRole.SALESMAN)
@@ -56,6 +58,67 @@ class User(Base):
     def __repr__(self):
         return f"<User(username='{self.username}', role='{self.role.value}')>"
 
+
+class ApprovalPolicy(Base):
+    """
+    Dynamic Approval Policy - The Rulebook
+    
+    Defines when approval is required for specific actions on resources.
+    Allows toggling approval on/off without changing code.
+    
+    Examples:
+    - Resource: 'partner', Action: 'create', Required Role: ADMIN
+    - Resource: 'order', Action: 'create', Required Role: MANAGER
+    """
+    __tablename__ = "approval_policies"
+    
+    id = Column(GUID(), primary_key=True, default=uuid.uuid4)
+    resource = Column(String(50), nullable=False, index=True, comment="Resource type (e.g., 'partner', 'order')")
+    action = Column(String(50), nullable=False, index=True, comment="Action type (e.g., 'create', 'update', 'delete')")
+    is_active = Column(Boolean, default=True, nullable=False, comment="Whether this policy is active")
+    required_role = Column(SQLEnum(UserRole), nullable=False, comment="Minimum role required for approval")
+    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
+    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
+    
+    def __repr__(self):
+        return f"<ApprovalPolicy(resource='{self.resource}', action='{self.action}', active={self.is_active})>"
+    
+    @classmethod
+    def requires_approval(cls, db_session, resource: str, action: str) -> dict:
+        """
+        Check if a resource/action combination requires approval
+        
+        Args:
+            db_session: Database session
+            resource: Resource type (e.g., 'partner')
+            action: Action type (e.g., 'create')
+            
+        Returns:
+            dict: {
+                'requires_approval': bool,
+                'required_role': UserRole or None,
+                'policy': ApprovalPolicy or None
+            }
+        """
+        policy = db_session.query(cls).filter_by(
+            resource=resource,
+            action=action,
+            is_active=True
+        ).first()
+        
+        if policy:
+            return {
+                'requires_approval': True,
+                'required_role': policy.required_role,
+                'policy': policy
+            }
+        else:
+            return {
+                'requires_approval': False,
+                'required_role': None,
+                'policy': None
+            }
+
 class ApprovalMixin:
     """
     The Maker-Checker Engine: Abstract Mixin for approval workflow
@@ -68,7 +131,7 @@ class ApprovalMixin:
     
     @declared_attr
     def approved_by_id(cls):
-        return Column(UUID(as_uuid=True), ForeignKey('users.id'), nullable=True)
+        return Column(GUID(), ForeignKey('users.id'), nullable=True)
     
     @declared_attr
     def approved_by(cls):
@@ -77,6 +140,14 @@ class ApprovalMixin:
     @declared_attr
     def rejection_reason(cls):
         return Column(Text, nullable=True)
+
+    @declared_attr
+    def created_by_id(cls):
+        return Column(GUID(), ForeignKey('users.id'), nullable=True)
+
+    @declared_attr
+    def created_by(cls):
+        return relationship("User", foreign_keys=[cls.created_by_id])
     
     @declared_attr
     def created_at(cls):
@@ -106,20 +177,3 @@ class ApprovalMixin:
         self.updated_at = datetime.utcnow()
 
 
-class ApprovalPolicy(Base):
-    """
-    The Rulebook: Configurable approval policies for different resources and actions
-    This allows us to toggle approval on/off for specific actions without changing code
-    """
-    __tablename__ = "approval_policies"
-    
-    id = Column(UUID(as_uuid=True), primary_key=True, default=uuid.uuid4)
-    resource = Column(String(50), nullable=False, index=True)  # e.g., 'partner', 'invoice'
-    action = Column(String(50), nullable=False, index=True)    # e.g., 'create', 'update', 'delete'
-    is_active = Column(Boolean, default=True, nullable=False)
-    required_role = Column(SQLEnum(UserRole), nullable=False)
-    created_at = Column(DateTime, default=datetime.utcnow, nullable=False)
-    updated_at = Column(DateTime, default=datetime.utcnow, onupdate=datetime.utcnow, nullable=False)
-    
-    def __repr__(self):
-        return f"<ApprovalPolicy(resource='{self.resource}', action='{self.action}', active={self.is_active})>"

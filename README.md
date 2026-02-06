@@ -15,16 +15,36 @@ A robust ERP system with dynamic versioning and parallel deployment support, bui
 ```
 ├── app/
 │   └── main.py              # FastAPI application
+├── frontend/                # React Application (New)
+├── install.sh               # Automated Installer
+├── DEPLOYMENT.md            # Installation Guide
 ├── docker-compose.yml       # Docker services configuration
 ├── Dockerfile              # Python application container
-├── launch_erp.sh           # Parallel instance launcher
-├── stop_erp.sh             # Instance stopper
 ├── requirements.txt        # Python dependencies
-├── .gitignore             # Git ignore rules
 └── README.md              # This file
 ```
 
-## 🛠️ Quick Start
+## 📦 Quick Installation (Recommended)
+
+Does not require Docker. Installs System Dependencies, Python Backend, React Frontend, and PM2 automatically.
+
+```bash
+# 1. Clone the repository
+git clone <your-repo-url>
+cd <repo-name>
+
+# 2. Run the One-Click Installer
+chmod +x install.sh
+./install.sh
+
+# 3. Access
+# Backend: http://localhost:8000
+# Frontend: http://localhost:56000
+```
+
+For detailed manual instructions, see [DEPLOYMENT.md](DEPLOYMENT.md).
+
+## 🐳 Docker Usage (Legacy/Alternative)
 
 ### Prerequisites
 - Docker and Docker Compose

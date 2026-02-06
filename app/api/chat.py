@@ -159,3 +159,79 @@ async def get_available_intents(
         "user_role": current_user.role.value,
         "total_intents": len(intents)
     }
+
+# --- NEW: Hybrid Chat/Upload Endpoint ---
+from fastapi import UploadFile, File, Form, BackgroundTasks
+from app.models.staging import StagingEntry, DocumentType, ProcessingStatus
+import shutil
+import os
+import uuid
+from app.services.ai_processor import process_document_task
+
+UPLOAD_DIR = "/root/workspace/uploads"
+
+@router.post("/message", response_model=ChatResponse)
+async def post_chat_message(
+    background_tasks: BackgroundTasks,
+    message: Optional[str] = Form(None),
+    file: Optional[UploadFile] = File(None),
+    db: Session = Depends(get_db),
+    current_user: User = Depends(get_current_user)
+):
+    """
+    Handle generic chat messages with optional file attachments.
+    - If file: Uploads and processes via AI (creates StagingEntry).
+    - If text only: Uses ChatService/Gemini to reply.
+    """
+    try:
+        response_text = ""
+        data = []
+        
+        # 1. Handle File Upload
+        if file:
+            # Save File
+            file_ext = os.path.splitext(file.filename)[1] or ".jpg"
+            filename = f"{uuid.uuid4()}{file_ext}"
+            filepath = os.path.join(UPLOAD_DIR, filename)
+            
+            with open(filepath, "wb") as buffer:
+                shutil.copyfileobj(file.file, buffer)
+            
+            # Create Staging Entry
+            db_entry = StagingEntry(
+                source_phone="web_upload", # Marker for internal upload
+                media_url=filepath,
+                raw_text=message or "Uploaded via Employee Chat",
+                status=ProcessingStatus.PENDING_REVIEW,
+                detected_type=DocumentType.UNKNOWN,
+                manager_notes=f"Uploaded by {current_user.username}"
+            )
+            db.add(db_entry)
+            db.commit()
+            db.refresh(db_entry)
+            
+            # Trigger Processing
+            background_tasks.add_task(process_document_task, db_entry.id)
+            
+            response_text = f"I've received your document '{file.filename}'. It is being processed by Gemini (ID: {db_entry.id}). You can view it in the Review Inbox shortly."
+            data.append({"type": "file_upload", "id": str(db_entry.id), "status": "processing"})
+        
+        # 2. Handle Text (if no file, or as accompaniment)
+        elif message:
+            # Reuse existing chat service
+            result = chat_service.process_message(db=db, user=current_user, text=message)
+            response_text = result.get("response", "I heard you.")
+            data = result.get("data", [])
+        
+        else:
+             response_text = "Please provide a message or a file."
+
+        return ChatResponse(
+            response=response_text,
+            data=data,
+            user_role=current_user.role.value
+        )
+
+    except Exception as e:
+        logger.error(f"Chat error: {e}")
+        return ChatResponse(response=f"Error: {str(e)}", error="processing_failed")

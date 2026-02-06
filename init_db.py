@@ -13,9 +13,12 @@ def init_database():
     """Initialize database with Super Admin user"""
     
     # Get database URL from environment or use default
-    database_url = os.getenv('DATABASE_URL', 'postgresql://erp_admin:db_password_123@localhost/erp_dev_db')
+    database_url = os.getenv('DATABASE_URL', 'sqlite:///./test_erp.db')
     
-    print(f"🔗 Connecting to database: {database_url.split('@')[1]}")
+    if '@' in database_url:
+        print(f"🔗 Connecting to database: {database_url.split('@')[1]}")
+    else:
+        print(f"🔗 Connecting to database: {database_url}")
     
     # Create engine and session
     engine = create_engine(database_url)

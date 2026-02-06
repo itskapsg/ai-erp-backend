@@ -7,8 +7,12 @@ from sqlalchemy import pool
 from alembic import context
 
 # Import our models so Alembic can see them
-from app.models.core import Base
+from app.models.core import Base, ApprovalPolicy  # Import ApprovalPolicy for migrations
 from app.models.masters import Partner  # Import to ensure it's registered with Base
+from app.models.products import Product, ProductVariant  # Import product models
+from app.models.orders import Order, OrderItem  # Import order models
+from app.models.namaste import Visit, Accommodation, Transport, ItineraryItem, MealPlan  # Import namaste models
+from app.models.staging import StagingEntry  # Import staging models
 
 # this is the Alembic Config object, which provides
 # access to the values within the .ini file in use.

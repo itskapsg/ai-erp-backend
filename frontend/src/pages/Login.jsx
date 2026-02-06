@@ -84,10 +84,11 @@ const Login = () => {
   ];
 
   const handleDemoLogin = (username) => {
-    setFormData({
+    setFormData((prev) => ({
+      ...prev,
       username,
       password: `${username}123`
-    });
+    }));
   };
 
   return (
@@ -223,6 +224,7 @@ const Login = () => {
               {demoUsers.map((user) => (
                 <Button
                   key={user.username}
+                  type="button"
                   variant="outlined"
                   size="small"
                   onClick={() => handleDemoLogin(user.username)}

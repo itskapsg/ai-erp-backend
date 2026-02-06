@@ -13,7 +13,7 @@ from fastapi import APIRouter, Depends, HTTPException, status
 from pydantic import BaseModel, Field
 from sqlalchemy.orm import Session
 
-from app.models import Partner, PartnerType, User, UserRole, WorkflowStage
+from app.models import Partner, PartnerType, User, UserRole, WorkflowStage, PartnerStatus
 from app.services.approval_service import ApprovalService
 from app.database import get_db
 from app.api.auth import get_current_active_user, require_role
@@ -29,6 +29,10 @@ class PartnerCreate(BaseModel):
     type: PartnerType = Field(..., description="Partner type: CUSTOMER or SUPPLIER")
     gst_number: Optional[str] = Field(None, max_length=15, description="GST registration number")
     credit_limit: Optional[Decimal] = Field(None, ge=0, description="Credit limit amount")
+    mobile: Optional[str] = Field(None, max_length=15, description="Mobile number")
+    email: Optional[str] = Field(None, max_length=100, description="Email address")
+    address: Optional[str] = Field(None, max_length=500, description="Physical address")
+    commission_rate: Optional[Decimal] = Field(None, ge=0, le=100, description="Commission percentage")
 
 
 class PartnerResponse(BaseModel):
@@ -37,11 +41,19 @@ class PartnerResponse(BaseModel):
     type: str
     gst_number: Optional[str]
     credit_limit: Optional[Decimal]
+    mobile: Optional[str]
+    email: Optional[str]
+    address: Optional[str]
+    commission_rate: Optional[Decimal]
+    outstanding_balance: Optional[Decimal]
+    status: str
     workflow_stage: str
     approved_by_id: Optional[str]
     rejection_reason: Optional[str]
     created_at: str
     updated_at: str
+    created_by_id: Optional[str] = None
+    created_by_name: Optional[str] = None
 
     class Config:
         from_attributes = True
@@ -95,7 +107,14 @@ async def create_partner(
         type=partner_data.type,
         gst_number=partner_data.gst_number,
         credit_limit=partner_data.credit_limit or Decimal('0.00'),
-        workflow_stage=workflow_stage  # Set by ApprovalService!
+        mobile=partner_data.mobile,
+        email=partner_data.email,
+        address=partner_data.address,
+        commission_rate=partner_data.commission_rate or Decimal('0.00'),
+        outstanding_balance=Decimal('0.00'),
+        status=PartnerStatus.ACTIVE,
+        workflow_stage=workflow_stage,  # Set by ApprovalService!
+        created_by_id=current_user.id
     )
     
     # If auto-approved, set the approver
@@ -112,11 +131,19 @@ async def create_partner(
         type=partner.type.value,
         gst_number=partner.gst_number,
         credit_limit=partner.credit_limit,
+        mobile=partner.mobile,
+        email=partner.email,
+        address=partner.address,
+        commission_rate=partner.commission_rate,
+        outstanding_balance=partner.outstanding_balance,
+        status=partner.status.value,
         workflow_stage=partner.workflow_stage.value,
         approved_by_id=str(partner.approved_by_id) if partner.approved_by_id else None,
         rejection_reason=partner.rejection_reason,
         created_at=partner.created_at.isoformat(),
-        updated_at=partner.updated_at.isoformat()
+        updated_at=partner.updated_at.isoformat(),
+        created_by_id=str(partner.created_by_id) if partner.created_by_id else None,
+        created_by_name=partner.created_by.username if partner.created_by else None
     )
 
 
@@ -153,11 +180,19 @@ async def list_partners(
             type=partner.type.value,
             gst_number=partner.gst_number,
             credit_limit=partner.credit_limit,
+            mobile=partner.mobile,
+            email=partner.email,
+            address=partner.address,
+            commission_rate=partner.commission_rate,
+            outstanding_balance=partner.outstanding_balance,
+            status=partner.status.value,
             workflow_stage=partner.workflow_stage.value,
             approved_by_id=str(partner.approved_by_id) if partner.approved_by_id else None,
             rejection_reason=partner.rejection_reason,
             created_at=partner.created_at.isoformat(),
-            updated_at=partner.updated_at.isoformat()
+            updated_at=partner.updated_at.isoformat(),
+            created_by_id=str(partner.created_by_id) if partner.created_by_id else None,
+            created_by_name=partner.created_by.username if partner.created_by else None
         )
         for partner in partners
     ]
@@ -184,11 +219,19 @@ async def get_partner(
         type=partner.type.value,
         gst_number=partner.gst_number,
         credit_limit=partner.credit_limit,
+        mobile=partner.mobile,
+        email=partner.email,
+        address=partner.address,
+        commission_rate=partner.commission_rate,
+        outstanding_balance=partner.outstanding_balance,
+        status=partner.status.value,
         workflow_stage=partner.workflow_stage.value,
         approved_by_id=str(partner.approved_by_id) if partner.approved_by_id else None,
         rejection_reason=partner.rejection_reason,
         created_at=partner.created_at.isoformat(),
-        updated_at=partner.updated_at.isoformat()
+        updated_at=partner.updated_at.isoformat(),
+        created_by_id=str(partner.created_by_id) if partner.created_by_id else None,
+        created_by_name=partner.created_by.username if partner.created_by else None
     )
 
 
@@ -224,6 +267,13 @@ async def approve_or_reject_partner(
     
     # Process the approval action
     if approval_data.action.lower() == "approve":
+        # SECURITY: Prevent Self-Approval
+        if partner.created_by_id == current_user.id:
+            raise HTTPException(
+                status_code=status.HTTP_400_BAD_REQUEST,
+                detail="Security Violation: You cannot approve your own partner request."
+            )
+            
         partner.approve(current_user)
         message = f"Partner '{partner.name}' has been approved"
         
@@ -266,3 +316,54 @@ async def get_pending_approvals_count(
         "pending_approvals": count,
         "message": f"There are {count} partners pending approval"
     }
+
+
+@router.put("/{partner_id}/status", response_model=PartnerResponse)
+async def update_partner_status(
+    partner_id: UUID,
+    status: str,
+    current_user: User = Depends(require_role(UserRole.ADMIN)),  # Admin only
+    db: Session = Depends(get_db)
+):
+    """
+    Update partner status (e.g., BLACKLISTED)
+    """
+    partner = db.query(Partner).filter(Partner.id == partner_id).first()
+    if not partner:
+        raise HTTPException(
+            status_code=status.HTTP_404_NOT_FOUND,
+            detail="Partner not found"
+        )
+    
+    try:
+        new_status = PartnerStatus(status.lower())
+    except ValueError:
+        raise HTTPException(
+            status_code=status.HTTP_400_BAD_REQUEST,
+            detail="Invalid status"
+        )
+        
+    partner.status = new_status
+    db.commit()
+    db.refresh(partner)
+    
+    return PartnerResponse(
+        id=str(partner.id),
+        name=partner.name,
+        type=partner.type.value,
+        gst_number=partner.gst_number,
+        credit_limit=partner.credit_limit,
+        mobile=partner.mobile,
+        email=partner.email,
+        address=partner.address,
+        commission_rate=partner.commission_rate,
+        outstanding_balance=partner.outstanding_balance,
+        status=partner.status.value,
+        workflow_stage=partner.workflow_stage.value,
+        approved_by_id=str(partner.approved_by_id) if partner.approved_by_id else None,
+        rejection_reason=partner.rejection_reason,
+        created_at=partner.created_at.isoformat(),
+        updated_at=partner.updated_at.isoformat(),
+        created_by_id=str(partner.created_by_id) if partner.created_by_id else None,
+        created_by_name=partner.created_by.username if partner.created_by else None
+    )

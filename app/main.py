@@ -1,10 +1,16 @@
 from fastapi import FastAPI, HTTPException
 from fastapi.middleware.cors import CORSMiddleware
+from fastapi.responses import FileResponse
+from fastapi.staticfiles import StaticFiles
 import os
 import sys
 import uvicorn
 import argparse
 import logging
+from dotenv import load_dotenv
+
+# Load environment variables
+load_dotenv()
 
 # Add the parent directory to the Python path for imports
 sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
@@ -12,7 +18,15 @@ sys.path.append(os.path.dirname(os.path.dirname(os.path.abspath(__file__))))
 # Import our API routers
 from app.api.auth import router as auth_router
 from app.api.partners import router as partners_router
+from app.api.products import router as products_router
+from app.api.orders import router as orders_router
+from app.api.approval_policies import router as approval_policies_router
 from app.api.chat import router as chat_router
+from app.api.namaste import router as namaste_router
+from app.api.users import router as users_router
+from app.api.webhook import router as webhook_router
+from app.api.accounting import router as accounting_router
+from app.api.reports import router as reports_router
 from app.database import create_tables, get_db, SessionLocal
 from app.models import Base
 
@@ -41,7 +55,15 @@ app.add_middleware(
 # Include API routers
 app.include_router(auth_router)
 app.include_router(partners_router)
+app.include_router(products_router, prefix="/api/v1")
+app.include_router(orders_router, prefix="/api/v1")
+app.include_router(approval_policies_router, prefix="/api/v1/approval-policies", tags=["Approval Policies"])
 app.include_router(chat_router, prefix="/api/v1")
+app.include_router(namaste_router, prefix="/api/v1/namaste", tags=["Project Namaste"])
+app.include_router(users_router)
+app.include_router(webhook_router, prefix="/api/v1", tags=["WhatsApp Webhook"])
+app.include_router(accounting_router, prefix="/api/v1", tags=["Accounting"])
+app.include_router(reports_router, prefix="/api/v1", tags=["Reports"])
 
 # Initialize database
 @app.on_event("startup")
@@ -64,8 +86,10 @@ async def root():
         "version": "2.0.0",
         "features": [
             "JWT Authentication",
-            "Dynamic Approval Policies",
+            "Dynamic Approval Policies with API Management",
             "Partner Management",
+            "Product Management with JSONB Variants",
+            "Order Management with Credit Limit Approval",
             "Role-based Access Control"
         ],
         "api_docs": "/docs"
@@ -93,10 +117,50 @@ async def health_check():
         "features_enabled": [
             "authentication",
             "approval_workflow",
-            "partner_management"
+            "partner_management",
+            "product_management",
+            "order_management"
         ]
     }
 
+# Mount static files for frontend
+frontend_dist_path = os.path.join(os.path.dirname(os.path.dirname(__file__)), "frontend", "dist")
+if os.path.exists(frontend_dist_path):
+    # Mount /static for explicit static access if needed
+    app.mount("/static", StaticFiles(directory=frontend_dist_path), name="static")
+    
+    # Mount /assets which Vite uses by default
+    assets_path = os.path.join(frontend_dist_path, "assets")
+    if os.path.exists(assets_path):
+        app.mount("/assets", StaticFiles(directory=assets_path), name="assets")
+        
+    logger.info(f"Mounted static files from: {frontend_dist_path}")
+
+# Mount uploads directory for serving images
+UPLOAD_DIR = "/root/workspace/uploads"
+if not os.path.exists(UPLOAD_DIR):
+    os.makedirs(UPLOAD_DIR)
+app.mount("/uploads", StaticFiles(directory=UPLOAD_DIR), name="uploads")
+
+# CATCH-ALL ROUTE FOR SPA (Fixes 404 on Refresh)
+# This must be the LAST route defined
+@app.get("/{full_path:path}")
+async def catch_all(full_path: str):
+    """
+    Catch-all route for SPA (Single Page Application) support.
+    Returns index.html for non-API routes to let React handle routing.
+    """
+    # If API request (starts with api/), let it fail normally (404)
+    if full_path.startswith("api"):
+        raise HTTPException(status_code=404, detail="API Endpoint not found")
+    
+    # Serve index.html (React handles the routing)
+    index_path = os.path.join(frontend_dist_path, "index.html")
+    if os.path.exists(index_path):
+        return FileResponse(index_path)
+    
+    # Fallback if index.html doesn't exist
+    raise HTTPException(status_code=404, detail="Frontend not built")
 
 
 if __name__ == "__main__":
